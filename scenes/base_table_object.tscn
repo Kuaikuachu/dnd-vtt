@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bawy7o7ixrdfp"]
+
+[ext_resource type="Script" path="res://scenes/base_table_object.gd" id="1_mvr3w"]
+
+[node name="BaseTableObject" type="Node3D"]
+script = ExtResource("1_mvr3w")
+real_name = "BaseTableObject"
+
+[node name="Model" type="Node3D" parent="."]

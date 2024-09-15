@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://d1yj6i7dldrum"]
+
+[ext_resource type="PackedScene" uid="uid://c0afcfaerokgh" path="res://cell/base_terrain.tscn" id="1_23ofa"]
+[ext_resource type="Texture2D" uid="uid://vdw4wgthb8sq" path="res://textures/kenney_dev/orange/texture_01.png" id="2_wiee5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8ca7l"]
+albedo_texture = ExtResource("2_wiee5")
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_2y40b"]
+material = SubResource("StandardMaterial3D_8ca7l")
+size = Vector3(1, 0.5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dh20g"]
+size = Vector3(1, 0.5, 1)
+
+[node name="TerrainExample2" instance=ExtResource("1_23ofa")]
+real_name = "TerrainExample2"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Model" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+mesh = SubResource("BoxMesh_2y40b")
+
+[node name="MouseInput" parent="." index="1"]
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MouseInput" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+shape = SubResource("BoxShape3D_dh20g")

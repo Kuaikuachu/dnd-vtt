@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0afcfaerokgh"]
+
+[ext_resource type="PackedScene" uid="uid://bawy7o7ixrdfp" path="res://scenes/base_table_object.tscn" id="1_ib1lr"]
+[ext_resource type="Script" path="res://cell/base_terrain.gd" id="2_kqq6t"]
+
+[node name="BaseTerrain" instance=ExtResource("1_ib1lr")]
+script = ExtResource("2_kqq6t")
+real_name = "BaseTerrain"
+
+[node name="MouseInput" type="StaticBody3D" parent="." index="1"]

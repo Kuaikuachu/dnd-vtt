@@ -1,0 +1,175 @@
+[gd_scene load_steps=14 format=3 uid="uid://dqffjjipet8pu"]
+
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_8o0da"]
+[ext_resource type="PackedScene" uid="uid://bf8ibjhwgc07v" path="res://scenes/character_body_3d.tscn" id="1_fbubj"]
+[ext_resource type="Script" path="res://scenes/camera.gd" id="2_6jgwc"]
+[ext_resource type="PackedScene" uid="uid://t6w3m5onix1r" path="res://scenes/table.tscn" id="2_6vf1i"]
+[ext_resource type="Script" path="res://scenes/multiplayer.gd" id="3_6botv"]
+[ext_resource type="Script" path="res://scenes/cell_debug.gd" id="6_p562j"]
+[ext_resource type="PackedScene" uid="uid://d2qotrc3t0aef" path="res://cell/playable/terrain_example_1.tscn" id="7_xfrct"]
+[ext_resource type="PackedScene" uid="uid://d1yj6i7dldrum" path="res://cell/playable/terrain_example_2.tscn" id="8_tswe3"]
+[ext_resource type="PackedScene" uid="uid://b66gfwg27cfec" path="res://cell/playable/figure_example_1.tscn" id="9_2i3pi"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_we44t"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_0id6y"]
+sky_material = SubResource("ProceduralSkyMaterial_we44t")
+
+[sub_resource type="Environment" id="Environment_oh4rw"]
+background_mode = 2
+sky = SubResource("Sky_0id6y")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mbo6n"]
+size = Vector3(100, 0.537, 100)
+
+[node name="Main" type="Node3D" node_paths=PackedStringArray("table")]
+script = ExtResource("1_8o0da")
+table = NodePath("Level/Table")
+
+[node name="Level" type="Node3D" parent="."]
+
+[node name="MovePointY" type="Node3D" parent="Level"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="MovePointX" type="Node3D" parent="Level/MovePointY"]
+
+[node name="CameraMount" type="Node3D" parent="Level/MovePointY/MovePointX"]
+transform = Transform3D(1, 6.32523e-08, 2.70747e-08, -6.32523e-08, 0.690302, 0.723522, 2.70747e-08, -0.723522, 0.690302, -2.62268e-07, 3, 3)
+
+[node name="Camera3D" type="Camera3D" parent="Level/MovePointY/MovePointX/CameraMount"]
+script = ExtResource("2_6jgwc")
+camera_speed = 0.05
+
+[node name="Timer" type="Timer" parent="Level/MovePointY/MovePointX/CameraMount/Camera3D"]
+wait_time = 0.12
+one_shot = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Level"]
+environment = SubResource("Environment_oh4rw")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Level"]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, -19.2704)
+shadow_enabled = true
+
+[node name="Table" parent="Level" instance=ExtResource("2_6vf1i")]
+
+[node name="DragPlane" type="StaticBody3D" parent="Level"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/DragPlane"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.012722, -0.258359, 0.887891)
+shape = SubResource("BoxShape3D_mbo6n")
+
+[node name="Players" type="Node3D" parent="."]
+
+[node name="Interface" type="Node2D" parent="."]
+
+[node name="multiplayer" type="Node2D" parent="Interface"]
+script = ExtResource("3_6botv")
+player_scene = ExtResource("1_fbubj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/multiplayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface/multiplayer/VBoxContainer"]
+layout_mode = 2
+
+[node name="host" type="Button" parent="Interface/multiplayer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "host"
+
+[node name="port" type="Label" parent="Interface/multiplayer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "port"
+
+[node name="LineEdit" type="LineEdit" parent="Interface/multiplayer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "25565"
+placeholder_text = "25565"
+expand_to_text_length = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Interface/multiplayer/VBoxContainer"]
+layout_mode = 2
+
+[node name="join" type="Button" parent="Interface/multiplayer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "join"
+
+[node name="port" type="Label" parent="Interface/multiplayer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "port"
+
+[node name="LineEdit" type="LineEdit" parent="Interface/multiplayer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "25565"
+placeholder_text = "25565"
+expand_to_text_length = true
+
+[node name="ip" type="Label" parent="Interface/multiplayer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "ip"
+
+[node name="LineEdit2" type="LineEdit" parent="Interface/multiplayer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "localhost"
+placeholder_text = "localhost"
+expand_to_text_length = true
+
+[node name="cell_debug" type="Node2D" parent="Interface"]
+position = Vector2(0, 224)
+script = ExtResource("6_p562j")
+scenes = Array[PackedScene]([ExtResource("9_2i3pi"), ExtResource("7_xfrct"), ExtResource("8_tswe3")])
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/cell_debug"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ItemList" type="ItemList" parent="Interface/cell_debug/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface/cell_debug/VBoxContainer"]
+layout_mode = 2
+
+[node name="ArrangeButton" type="Button" parent="Interface/cell_debug/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "place"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/cell_debug/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="XBox" type="SpinBox" parent="Interface/cell_debug/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="x" type="Label" parent="Interface/cell_debug/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "x"
+horizontal_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Interface/cell_debug/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="YBox" type="SpinBox" parent="Interface/cell_debug/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="y" type="Label" parent="Interface/cell_debug/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "y"
+horizontal_alignment = 1
+
+[connection signal="ready" from="." to="Interface/multiplayer" method="_on_main_ready"]
+[connection signal="ready" from="." to="Interface/cell_debug" method="_on_main_ready"]
+[connection signal="timeout" from="Level/MovePointY/MovePointX/CameraMount/Camera3D/Timer" to="Level/MovePointY/MovePointX/CameraMount/Camera3D" method="_on_timer_timeout"]
+[connection signal="pressed" from="Interface/multiplayer/VBoxContainer/HBoxContainer/host" to="Interface/multiplayer" method="_on_host_pressed"]
+[connection signal="pressed" from="Interface/multiplayer/VBoxContainer/HBoxContainer2/join" to="Interface/multiplayer" method="_on_join_pressed"]
+[connection signal="item_clicked" from="Interface/cell_debug/VBoxContainer/ItemList" to="Interface/cell_debug" method="_on_item_list_item_clicked"]
+[connection signal="pressed" from="Interface/cell_debug/VBoxContainer/HBoxContainer/ArrangeButton" to="Interface/cell_debug" method="_on_arrange_button_pressed"]

@@ -1,0 +1,2 @@
+extends TableObject
+class_name FigureObject
