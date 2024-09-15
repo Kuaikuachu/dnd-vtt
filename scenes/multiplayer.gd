@@ -30,8 +30,8 @@ func _on_main_ready() -> void:
 
 func _on_player_connected(id):
 	for cell in gridman.grid_dict.keys():
-		gridman.create_object.rpc_id(id, cell.real_name, gridman.grid_dict[cell])
-
+		var pos = gridman.grid_dict[cell]
+		gridman.create_object.rpc_id(id, cell.real_name, pos)
 
 func _on_player_disconnected(id):
 	pass

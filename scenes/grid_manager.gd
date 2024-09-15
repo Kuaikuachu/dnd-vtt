@@ -57,20 +57,18 @@ func coord_to_cell_transition(coord : float, horizontal : bool) -> int:
 	return cell_coord
 
 @rpc("call_local", "any_peer")
-func create_object(object_id, pos : Vector3):
+func create_object(object_id, pos):
+
 	var object
 	if object_id is PackedScene:
 		object = object_id
 	else:
-		object = Globals.cell_debug.get_scene_from_string(object_id)
+		object = Globals.celist_node.get_scene_from_string(object_id)
 	var new_obj = object.instantiate()
-	
 	write_to_dict(new_obj, pos)
-	
-	print(grid_dict)
-	
 	grid.add_child(new_obj)
-	new_obj.global_position = pos
+	new_obj.move_cell(pos)
+	new_obj.init_done()
 
 
 func write_to_dict(object : Node3D, pos : Vector3):

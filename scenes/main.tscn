@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://dqffjjipet8pu"]
+[gd_scene load_steps=15 format=3 uid="uid://dqffjjipet8pu"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_8o0da"]
 [ext_resource type="PackedScene" uid="uid://bf8ibjhwgc07v" path="res://scenes/character_body_3d.tscn" id="1_fbubj"]
 [ext_resource type="Script" path="res://scenes/camera.gd" id="2_6jgwc"]
 [ext_resource type="PackedScene" uid="uid://t6w3m5onix1r" path="res://scenes/table.tscn" id="2_6vf1i"]
+[ext_resource type="Script" path="res://scenes/cells_list.gd" id="2_bis5b"]
 [ext_resource type="Script" path="res://scenes/multiplayer.gd" id="3_6botv"]
 [ext_resource type="Script" path="res://scenes/cell_debug.gd" id="6_p562j"]
 [ext_resource type="PackedScene" uid="uid://d2qotrc3t0aef" path="res://cell/playable/terrain_example_1.tscn" id="7_xfrct"]
@@ -29,6 +30,10 @@ size = Vector3(100, 0.537, 100)
 [node name="Main" type="Node3D" node_paths=PackedStringArray("table")]
 script = ExtResource("1_8o0da")
 table = NodePath("Level/Table")
+
+[node name="CellsList" type="Node" parent="."]
+script = ExtResource("2_bis5b")
+scenes = Array[PackedScene]([ExtResource("9_2i3pi"), ExtResource("7_xfrct"), ExtResource("8_tswe3")])
 
 [node name="Level" type="Node3D" parent="."]
 
@@ -124,7 +129,6 @@ expand_to_text_length = true
 [node name="cell_debug" type="Node2D" parent="Interface"]
 position = Vector2(0, 224)
 script = ExtResource("6_p562j")
-scenes = Array[PackedScene]([ExtResource("9_2i3pi"), ExtResource("7_xfrct"), ExtResource("8_tswe3")])
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Interface/cell_debug"]
 offset_right = 40.0
@@ -166,6 +170,7 @@ layout_mode = 2
 text = "y"
 horizontal_alignment = 1
 
+[connection signal="ready" from="." to="Level/MovePointY/MovePointX/CameraMount/Camera3D" method="_on_main_ready"]
 [connection signal="ready" from="." to="Interface/multiplayer" method="_on_main_ready"]
 [connection signal="ready" from="." to="Interface/cell_debug" method="_on_main_ready"]
 [connection signal="timeout" from="Level/MovePointY/MovePointX/CameraMount/Camera3D/Timer" to="Level/MovePointY/MovePointX/CameraMount/Camera3D" method="_on_timer_timeout"]

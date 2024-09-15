@@ -9,17 +9,27 @@ class_name TableObject
 
 @export var y_offset : float = 0.0
 
+@export var by_grid : bool = false
+
 var grid_position : Vector2i
 
 var selected : bool = false
 var held : bool = false
 
-@rpc("call_local","any_peer")
-func move_cell(pos):
-	grid_position = gridman.get_cell_from_real_position(pos)
-	update_pos.rpc()
+func init_done():
+	pass
 
-@rpc("call_local","any_peer")
+
+@rpc("call_local","any_peer", "reliable")
+func move_cell(pos):
+	if by_grid:
+		grid_position = gridman.get_cell_from_real_position(pos)
+		update_pos.rpc()
+	else:
+		Globals.gridman.write_to_dict(self, pos)
+		global_position = pos
+
+@rpc("call_local","any_peer", "reliable")
 func update_pos():
 	global_position = gridman.get_cell_real_position(grid_position)
 

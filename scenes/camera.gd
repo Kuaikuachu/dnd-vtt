@@ -80,11 +80,14 @@ func stop_click():
 		## PUT ON_HOLD_STOP STUFF HERE 
 		held_object.return_collisions()
 		held_object._on_stop_held()
-		if held_object is TerrainObject:
-			held_object.move_cell.rpc(raycast["position"])
+		
+		var pos = raycast["position"]
+		held_object.move_cell.rpc(pos)
+		
 		selected_object = null
 		held_object = null
 	
+	print(gridman.grid_dict)
 	current_collision_mask = normal_collision_mask
 
 
@@ -154,3 +157,7 @@ func create_object_at_mouse(object_id):
 	var raycast = shoot_ray()
 	current_collision_mask = normal_collision_mask
 	gridman.create_object.rpc(object_id, raycast["position"])
+
+
+func _on_main_ready() -> void:
+	gridman = Globals.gridman
