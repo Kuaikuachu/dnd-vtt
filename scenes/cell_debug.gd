@@ -4,6 +4,7 @@ var gridman : Node
 @onready var x_box = $VBoxContainer/HBoxContainer/VBoxContainer/XBox
 @onready var y_box = $VBoxContainer/HBoxContainer/VBoxContainer2/YBox
 @onready var scene_list: ItemList = $VBoxContainer/ItemList
+@onready var build_mode_check: CheckBox = $VBoxContainer/CheckBox
 
 var selected_scene : PackedScene
 

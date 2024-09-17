@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dqffjjipet8pu"]
+[gd_scene load_steps=16 format=3 uid="uid://dqffjjipet8pu"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_8o0da"]
 [ext_resource type="PackedScene" uid="uid://bf8ibjhwgc07v" path="res://scenes/character_body_3d.tscn" id="1_fbubj"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scenes/multiplayer.gd" id="3_6botv"]
 [ext_resource type="Script" path="res://scenes/cell_debug.gd" id="6_p562j"]
 [ext_resource type="PackedScene" uid="uid://d2qotrc3t0aef" path="res://cell/playable/terrain_example_1.tscn" id="7_xfrct"]
+[ext_resource type="PackedScene" uid="uid://euerdqfv8hkm" path="res://cell/cell_visual.tscn" id="8_2n2qo"]
 [ext_resource type="PackedScene" uid="uid://d1yj6i7dldrum" path="res://cell/playable/terrain_example_2.tscn" id="8_tswe3"]
 [ext_resource type="PackedScene" uid="uid://b66gfwg27cfec" path="res://cell/playable/figure_example_1.tscn" id="9_2i3pi"]
 
@@ -69,6 +70,8 @@ collision_mask = 2
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Level/DragPlane"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.012722, -0.258359, 0.887891)
 shape = SubResource("BoxShape3D_mbo6n")
+
+[node name="CellVisual" parent="Level" instance=ExtResource("8_2n2qo")]
 
 [node name="Players" type="Node3D" parent="."]
 
@@ -169,6 +172,11 @@ layout_mode = 2
 layout_mode = 2
 text = "y"
 horizontal_alignment = 1
+
+[node name="CheckBox" type="CheckBox" parent="Interface/cell_debug/VBoxContainer"]
+layout_mode = 2
+button_mask = 0
+text = "BUILD MODE"
 
 [connection signal="ready" from="." to="Level/MovePointY/MovePointX/CameraMount/Camera3D" method="_on_main_ready"]
 [connection signal="ready" from="." to="Interface/multiplayer" method="_on_main_ready"]

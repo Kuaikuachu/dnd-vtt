@@ -48,6 +48,7 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("build_mode"):
 		build_mode = !build_mode
+		Globals.cell_debug.build_mode_check.button_pressed = build_mode
 
 func _unhandled_input(event: InputEvent) -> void:
 	if movement_enabled and event is InputEventMouseMotion:
@@ -73,13 +74,17 @@ func stop_click():
 	timer.stop()
 	
 	if build_mode:
-		create_object_at_mouse(Globals.cell_debug.scenes_dict.find_key(Globals.cell_debug.selected_scene))
+		create_object_at_mouse(Globals.celist.find_key(Globals.cell_debug.selected_scene))
+		return	
 	
 	
 	if held_object:
 		## PUT ON_HOLD_STOP STUFF HERE 
 		held_object.return_collisions()
 		held_object._on_stop_held()
+		
+		if raycast.is_empty():
+			return
 		
 		var pos = raycast["position"]
 		held_object.move_cell.rpc(pos)
@@ -114,6 +119,8 @@ func zoom_out():
 
 
 func _physics_process(delta: float) -> void:
+	
+	
 	var input_dir = Input.get_vector("left", "right", "forward", "back")
 	var vertical_dir = Input.get_axis("down", "up")
 		
@@ -122,7 +129,12 @@ func _physics_process(delta: float) -> void:
 		if direction:
 			camera_speed_relative = camera_speed * camera_mount.position.distance_to(move_point_x.position)
 			move_point_y.position += direction * camera_speed_relative
-		
+
+	## MANIPULATOR FANCY SHADER LOGIC
+	#var raypulator = shoot_ray(drag_plane_collision_mask)
+	#if !raypulator.is_empty():
+		#Globals.main.cell_visual._set_manipulator_pos(raypulator["position"].x, raypulator["position"].z)
+	
 	
 	## PUT ON HOLD STUFF HERE
 	if held_object:
@@ -132,7 +144,14 @@ func _physics_process(delta: float) -> void:
 			held_object.update_multiplayer_pos.rpc(held_object.global_position)
 
 
-func shoot_ray():
+func _process(delta: float) -> void:
+	## MANIPULATOR FANCY SHADER LOGIC
+	var raypulator = shoot_ray(drag_plane_collision_mask - normal_collision_mask)
+	if !raypulator.is_empty():
+		Globals.main.cell_visual._set_manipulator_pos(raypulator["position"].x, raypulator["position"].z)
+
+
+func shoot_ray(mask = current_collision_mask):
 	var mouse_pos = get_viewport().get_mouse_position()
 	var ray_length = 1000
 	var from = project_ray_origin(mouse_pos)
@@ -142,7 +161,7 @@ func shoot_ray():
 	
 	ray_query.from = from
 	ray_query.to = to
-	ray_query.collision_mask = current_collision_mask
+	ray_query.collision_mask = mask
 	
 	var raycast_result = space.intersect_ray(ray_query)
 	return raycast_result
@@ -153,9 +172,9 @@ func _on_timer_timeout() -> void:
 
 
 func create_object_at_mouse(object_id):
-	current_collision_mask = drag_plane_collision_mask
-	var raycast = shoot_ray()
-	current_collision_mask = normal_collision_mask
+	var raycast = shoot_ray(drag_plane_collision_mask)
+	if not object_id or raycast.is_empty():
+		return
 	gridman.create_object.rpc(object_id, raycast["position"])
 
 
