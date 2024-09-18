@@ -47,7 +47,11 @@ func _input(event: InputEvent) -> void:
 		zoom_out()
 	
 	if event.is_action_pressed("build_mode"):
-		build_mode = !build_mode
+		$"../../../../../VBoxContainer/Button".grab_focus()
+		build_mode = true
+		Globals.cell_debug.build_mode_check.button_pressed = build_mode
+	if event.is_action_released("build_mode"):
+		build_mode = false
 		Globals.cell_debug.build_mode_check.button_pressed = build_mode
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -92,7 +96,6 @@ func stop_click():
 		selected_object = null
 		held_object = null
 	
-	print(gridman.grid_dict)
 	current_collision_mask = normal_collision_mask
 
 

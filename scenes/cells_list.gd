@@ -2,6 +2,8 @@ extends Node
 
 signal cell_list_ready
 
+var custom_2d_terrain_dir : String
+
 var cell_debug_loaded : bool = false
 var customs_finished : bool = false
 
@@ -12,9 +14,26 @@ var name_to_texture : Dictionary
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	add_custom_directories()
+	
+	
 	write_scenes_to_dict()
 	Globals.celist_node = self
 	add_custom()
+
+
+func add_custom_directories():
+	var path : String = OS.get_executable_path().get_base_dir()
+	print(path)
+	var dir = DirAccess.open(path)
+	if !dir.dir_exists("custom"):
+		dir.make_dir("custom")
+	dir.change_dir("custom")
+	
+	if !dir.dir_exists("2dterrain"):
+		dir.make_dir("2dterrain")
+	dir.change_dir("2dterrain")
+	custom_2d_terrain_dir = dir.get_current_dir()
 
 
 func write_scenes_to_dict() -> void:
@@ -48,6 +67,21 @@ func add_custom():
 	for t_name in DirAccess.get_files_at("res://custom/2dterrain"):
 		if t_name.find(".import") == -1:
 			custom_terrain_list.append(t_name)
+	
+	for t_name in DirAccess.get_files_at(custom_2d_terrain_dir):
+		var complete_path = custom_2d_terrain_dir + "/" + t_name
+		
+		var image = Image.new()
+		image.load(complete_path)
+		
+		var new_texture = ImageTexture.create_from_image(image)
+		
+		name_to_texture[t_name] = new_texture
+	
+		var terrain = scenes[0].instantiate()
+		var scene = PackedScene.new()
+		scene.pack(terrain)
+		write_to_dict(scene, t_name)
 	
 	for t_name in custom_terrain_list.size():
 		name_to_texture[custom_terrain_list[t_name]] = load("res://custom/2dterrain/" + custom_terrain_list[t_name])

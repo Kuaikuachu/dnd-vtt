@@ -25,3 +25,7 @@ func _on_main_ready() -> void:
 
 func _on_item_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
 	selected_scene = Globals.celist_node.get_scene_from_string(scene_list.get_item_text(index))
+
+
+func _on_check_box_toggled(toggled_on: bool) -> void:
+	%CellVisual.visible = toggled_on
