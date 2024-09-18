@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://cltyu5l8vkd02"]
+
+[ext_resource type="PackedScene" uid="uid://c0afcfaerokgh" path="res://cell/base_terrain.tscn" id="1_qafx1"]
+[ext_resource type="Script" path="res://cell/2d_texture_terrain.gd" id="2_wvwkf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tjvsw"]
+resource_local_to_scene = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_de3qp"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_tjvsw")
+size = Vector2(1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_guk8f"]
+size = Vector3(1, 0.0664062, 1)
+
+[node name="2DTextureTerrain" instance=ExtResource("1_qafx1")]
+script = ExtResource("2_wvwkf")
+by_grid = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Model" index="0"]
+mesh = SubResource("PlaneMesh_de3qp")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MouseInput" index="0"]
+shape = SubResource("BoxShape3D_guk8f")

@@ -6,13 +6,11 @@ var gridman : Node
 @onready var scene_list: ItemList = $VBoxContainer/ItemList
 @onready var build_mode_check: CheckBox = $VBoxContainer/CheckBox
 
-var selected_scene : PackedScene
+var selected_scene
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Globals.cell_debug = self
-	
-	write_scenes_to_list()
 
 func write_scenes_to_list():
 	for string in Globals.celist:

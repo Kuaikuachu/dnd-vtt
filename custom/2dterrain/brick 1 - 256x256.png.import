@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cas4p1rs18n1v"
-path="res://.godot/imported/cell_grid.png-2ef63ecda005ffb6fd9bf730496091c2.ctex"
+uid="uid://cegumj7q5ge2y"
+path="res://.godot/imported/brick 1 - 256x256.png-5c7a2451a8b81306c16f286de8ed04be.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/cell_grid.png"
-dest_files=["res://.godot/imported/cell_grid.png-2ef63ecda005ffb6fd9bf730496091c2.ctex"]
+source_file="res://custom/2dterrain/brick 1 - 256x256.png"
+dest_files=["res://.godot/imported/brick 1 - 256x256.png-5c7a2451a8b81306c16f286de8ed04be.ctex"]
 
 [params]
 

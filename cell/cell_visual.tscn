@@ -9,20 +9,20 @@ render_priority = 0
 shader = ExtResource("2_r2phh")
 shader_parameter/grid_size = 100.0
 shader_parameter/cell_size = 1.0
-shader_parameter/gutter_size = 0.025
+shader_parameter/gutter_size = 0.015
 shader_parameter/cell_color = Color(0.0784314, 0.0235294, 0, 0)
 shader_parameter/gutter_color = Color(1, 1, 1, 0)
 shader_parameter/cell_roundedness = 0.0
 shader_parameter/cell_manipulator_radius = 5.495
 shader_parameter/cell_manipulator_uv_pos = Vector2(0.5, 0.5)
-shader_parameter/manipulated_cell_size = 0.95
+shader_parameter/manipulated_cell_size = 1.1
 shader_parameter/manipulator_gutter_color = Color(1, 1, 1, 1)
 shader_parameter/cell_manipulation_anim_speed = 0.0
 shader_parameter/gutter_noise_color = Color(1, 1, 1, 1)
 shader_parameter/gutter_noise_speed = 0.1
 shader_parameter/fresnel_color = Color(0.675, 0.192, 0, 1)
-shader_parameter/fresnel_intensity = 0.2
-shader_parameter/fresnel_amount = 15.0
+shader_parameter/fresnel_intensity = 0.0
+shader_parameter/fresnel_amount = 0.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_57d1f"]
 material = SubResource("ShaderMaterial_beswn")

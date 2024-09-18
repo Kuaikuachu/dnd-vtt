@@ -1,17 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://t6w3m5onix1r"]
+[gd_scene load_steps=3 format=3 uid="uid://t6w3m5onix1r"]
 
 [ext_resource type="Script" path="res://scenes/grid_manager.gd" id="1_68rol"]
 [ext_resource type="Script" path="res://scenes/table.gd" id="1_c4ryg"]
-[ext_resource type="Texture2D" uid="uid://vksdpoxwrh24" path="res://textures/360_F_151926190_27YnXZJqE5dHQY0kdQR6BSK3iV9CdKnW.jpg" id="3_latap"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w5sms"]
-albedo_texture = ExtResource("3_latap")
-uv1_scale = Vector3(-0.145, -0.145, -0.145)
-uv1_triplanar = true
-
-[sub_resource type="BoxMesh" id="BoxMesh_x2206"]
-material = SubResource("StandardMaterial3D_w5sms")
-size = Vector3(50, 1, 50)
 
 [node name="Table" type="Node3D" node_paths=PackedStringArray("gridman", "grid")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
@@ -26,7 +16,3 @@ grid_vertical = 50
 grid = NodePath("../Grid")
 
 [node name="Grid" type="Node3D" parent="."]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-mesh = SubResource("BoxMesh_x2206")

@@ -64,7 +64,11 @@ func create_object(object_id, pos):
 		object = object_id
 	else:
 		object = Globals.celist_node.get_scene_from_string(object_id)
+	
 	var new_obj = object.instantiate()
+	if new_obj is TextureTerrain:
+		new_obj.apply_mat(Globals.celist_node.name_to_texture[object_id])
+		
 	write_to_dict(new_obj, pos)
 	grid.add_child(new_obj)
 	new_obj.move_cell(pos)
