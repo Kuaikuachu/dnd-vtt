@@ -22,6 +22,10 @@ func _ready() -> void:
 	add_custom()
 
 
+@rpc("any_peer", "call_local")
+func sync_name_to_texture(dict):
+	name_to_texture = dict
+
 func add_custom_directories():
 	var path : String = OS.get_executable_path().get_base_dir()
 	print(path)
@@ -94,7 +98,6 @@ func add_custom():
 	if cell_debug_loaded:
 		Globals.cell_debug.write_scenes_to_list()
 	customs_finished = true
-	print(name_to_texture)
 
 
 func _on_cell_debug_ready() -> void:

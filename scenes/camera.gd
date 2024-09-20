@@ -66,11 +66,16 @@ func click():
 	timer.start()
 
 func hold():
+	if build_mode:
+		return
 	current_collision_mask = drag_plane_collision_mask
 	held_object = selected_object
 	
 	if held_object is TableObject:
 		held_object.start_held()
+	else:
+		held_object = null
+		current_collision_mask = normal_collision_mask
 		
 
 func stop_click():
@@ -79,7 +84,7 @@ func stop_click():
 	
 	if build_mode:
 		create_object_at_mouse(Globals.celist.find_key(Globals.cell_debug.selected_scene))
-		return	
+		return
 	
 	
 	if held_object:
@@ -143,14 +148,17 @@ func _physics_process(delta: float) -> void:
 	if held_object:
 		var raycast = shoot_ray()
 		if !raycast.is_empty():
-			held_object.on_held(raycast["position"])
-			held_object.update_multiplayer_pos.rpc(held_object.global_position)
+			if held_object is TableObject:
+				held_object.on_held(raycast["position"])
+				held_object.update_multiplayer_pos.rpc(held_object.global_position)
+			else:
+				stop_click()
 
 
 func _process(delta: float) -> void:
 	## MANIPULATOR FANCY SHADER LOGIC
 	var raypulator = shoot_ray(drag_plane_collision_mask - normal_collision_mask)
-	if !raypulator.is_empty():
+	if !raypulator.is_empty() and Globals.main.cell_visual:
 		Globals.main.cell_visual._set_manipulator_pos(raypulator["position"].x, raypulator["position"].z)
 
 

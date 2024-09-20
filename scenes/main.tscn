@@ -76,6 +76,7 @@ shape = SubResource("BoxShape3D_mbo6n")
 [node name="CellVisual" parent="Level" instance=ExtResource("8_2n2qo")]
 unique_name_in_owner = true
 visible = false
+disabled = true
 
 [node name="Players" type="Node3D" parent="."]
 
@@ -197,6 +198,7 @@ button_mask = 0
 text = "BUILD MODE"
 
 [connection signal="ready" from="." to="Level/MovePointY/MovePointX/CameraMount/PlayerCamera" method="_on_main_ready"]
+[connection signal="ready" from="." to="Level/CellVisual" method="_on_main_ready"]
 [connection signal="ready" from="." to="Interface/multiplayer" method="_on_main_ready"]
 [connection signal="ready" from="." to="Interface/cell_debug" method="_on_main_ready"]
 [connection signal="timeout" from="Level/MovePointY/MovePointX/CameraMount/PlayerCamera/Timer" to="Level/MovePointY/MovePointX/CameraMount/PlayerCamera" method="_on_timer_timeout"]

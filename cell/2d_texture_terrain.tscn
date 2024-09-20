@@ -16,6 +16,7 @@ size = Vector3(1, 0.0664062, 1)
 
 [node name="2DTextureTerrain" instance=ExtResource("1_qafx1")]
 script = ExtResource("2_wvwkf")
+real_name = "2DTextureTerrain"
 by_grid = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Model" index="0"]

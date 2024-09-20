@@ -28,4 +28,5 @@ func _on_item_list_item_clicked(index: int, at_position: Vector2, mouse_button_i
 
 
 func _on_check_box_toggled(toggled_on: bool) -> void:
-	%CellVisual.visible = toggled_on
+	if Globals.main.cell_visual:			
+		Globals.main.cell_visual.visible = toggled_on

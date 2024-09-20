@@ -58,14 +58,16 @@ func coord_to_cell_transition(coord : float, horizontal : bool) -> int:
 
 @rpc("call_local", "any_peer")
 func create_object(object_id, pos):
-
 	var object
+	print("obj_id ",object_id)
 	if object_id is PackedScene:
 		object = object_id
 	else:
 		object = Globals.celist_node.get_scene_from_string(object_id)
-	
+	print("obj ",object)
 	var new_obj = object.instantiate()
+	print("new obj ",new_obj.name)
+	print("name to texture ", Globals.celist_node.name_to_texture)
 	if new_obj is TextureTerrain:
 		new_obj.apply_mat(Globals.celist_node.name_to_texture[object_id])
 		
@@ -73,6 +75,7 @@ func create_object(object_id, pos):
 	grid.add_child(new_obj)
 	new_obj.move_cell(pos)
 	new_obj.init_done()
+
 
 
 func write_to_dict(object : Node3D, pos : Vector3):
