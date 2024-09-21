@@ -13,7 +13,10 @@ func _ready() -> void:
 	Globals.cell_debug = self
 
 func write_scenes_to_list():
+	var filter_array : Array = ["2DTextureTerrain", "2DTextureToken"]
 	for string in Globals.celist:
+		if filter_array.has(string):
+			continue
 		scene_list.add_item(string)
 
 func _on_arrange_button_pressed() -> void:

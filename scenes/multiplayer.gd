@@ -29,13 +29,9 @@ func _on_main_ready() -> void:
 
 
 func _on_player_connected(id):
-	Globals.celist_node.sync_name_to_texture.rpc_id(id, Globals.celist_node.name_to_texture)
 	for cell in gridman.grid_dict.keys():
 		var pos = gridman.grid_dict[cell]
-		if cell is TextureTerrain:
-			gridman.create_object.rpc_id(id, cell.name, pos)
-		else:
-			gridman.create_object.rpc_id(id, cell.real_name, pos)
+		gridman.create_object.rpc_id(id, cell.real_name, pos)
 
 func _on_player_disconnected(id):
 	pass

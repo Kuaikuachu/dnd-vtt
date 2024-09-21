@@ -31,6 +31,7 @@ size = Vector2(100, 100)
 [node name="CellVisual" instance=ExtResource("1_b4oej")]
 script = ExtResource("2_drr2m")
 grid_size = 100
+disabled = false
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Model" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0177242, 0)

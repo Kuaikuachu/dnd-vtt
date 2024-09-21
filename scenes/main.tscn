@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dqffjjipet8pu"]
+[gd_scene load_steps=18 format=3 uid="uid://dqffjjipet8pu"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_8o0da"]
 [ext_resource type="PackedScene" uid="uid://bf8ibjhwgc07v" path="res://scenes/character_body_3d.tscn" id="1_fbubj"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scenes/cells_list.gd" id="2_bis5b"]
 [ext_resource type="Script" path="res://scenes/multiplayer.gd" id="3_6botv"]
 [ext_resource type="PackedScene" uid="uid://cltyu5l8vkd02" path="res://cell/2d_texture_terrain.tscn" id="3_ji6q1"]
+[ext_resource type="PackedScene" uid="uid://cxfdfvyg8vdk3" path="res://cell/2d_texture_token.tscn" id="4_xrduw"]
 [ext_resource type="Script" path="res://scenes/cell_debug.gd" id="6_p562j"]
 [ext_resource type="PackedScene" uid="uid://d2qotrc3t0aef" path="res://cell/playable/terrain_example_1.tscn" id="7_xfrct"]
 [ext_resource type="PackedScene" uid="uid://euerdqfv8hkm" path="res://cell/cell_visual.tscn" id="8_2n2qo"]
@@ -35,7 +36,7 @@ table = NodePath("Level/Table")
 
 [node name="CellsList" type="Node" parent="."]
 script = ExtResource("2_bis5b")
-scenes = Array[PackedScene]([ExtResource("3_ji6q1"), ExtResource("9_2i3pi"), ExtResource("7_xfrct"), ExtResource("8_tswe3")])
+scenes = Array[PackedScene]([ExtResource("3_ji6q1"), ExtResource("4_xrduw"), ExtResource("9_2i3pi"), ExtResource("7_xfrct"), ExtResource("8_tswe3")])
 
 [node name="Level" type="Node3D" parent="."]
 
@@ -76,7 +77,6 @@ shape = SubResource("BoxShape3D_mbo6n")
 [node name="CellVisual" parent="Level" instance=ExtResource("8_2n2qo")]
 unique_name_in_owner = true
 visible = false
-disabled = true
 
 [node name="Players" type="Node3D" parent="."]
 

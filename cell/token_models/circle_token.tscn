@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=4 uid="uid://ctpesdsrp4jxq"]
+
+[ext_resource type="PackedScene" uid="uid://bn1chxpcelp43" path="res://cell/token_models/circle_token.glb" id="1_yj0pi"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g58yc"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ulo4u"]
+_surfaces = [{
+"aabb": AABB(-0.817458, 0.0480522, -0.817458, 1.63492, 1e-05, 1.63492),
+"format": 34896613377,
+"index_count": 54,
+"index_data": PackedByteArray("AAATABIAEwAQABEAEAAOAA8ADgAMAA0ADAAKAAsACgAIAAkACAAGAAcABgAEAAUABAACAAMAAgAAAAEAAAAQABMAEAAMAA4ADAAIAAoACAAEAAYABAAAAAIAAAAMABAADAAEAAgADAAAAAQA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 20,
+"vertex_data": PackedByteArray("jacAAEMGAAA7ywAAchgAAIznAADDNAAAu/kAAHFYAAD//wAA/38AALv5AACNpwAAjOcAADvLAAA7ywAAjOcAAI2nAAC7+QAA/38AAP//AABxWAAAu/kAAMM0AACM5wAAchgAADvLAABDBgAAjacAAAAAAAD/fwAAQwYAAHFYAAByGAAAwzQAAMM0AAByGAAA/38AAAAAAABxWAAAQwYAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_pm7ux"]
+resource_name = "circle_token_Circle_001"
+_surfaces = [{
+"aabb": AABB(-0.817458, 0.0480522, -0.817458, 1.63492, 1e-05, 1.63492),
+"attribute_data": PackedByteArray("jadDBjvLchiM58M0u/lxWP///3+7+Y2njOc7yzvLjOeNp7v5/3///3FYu/nDNIznchg7y0MGjacAAP9/QwZxWHIYwzTDNHIY/38AAHFYQwY="),
+"format": 34896613399,
+"index_count": 54,
+"index_data": PackedByteArray("AAATABIAEwAQABEAEAAOAA8ADgAMAA0ADAAKAAsACgAIAAkACAAGAAcABgAEAAUABAACAAMAAgAAAAEAAAAQABMAEAAMAA4ADAAIAAoACAAEAAYABAAAAAIAAAAMABAADAAEAAgADAAAAAQA"),
+"material": SubResource("StandardMaterial3D_g58yc"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 20,
+"vertex_data": PackedByteArray("jacAAEMG/787ywAAchj/v4znAADDNP+/u/kAAHFY/7///wAA/3//v7v5AACNp/+/jOcAADvL/787ywAAjOf/v42nAAC7+f+//38AAP///79xWAAAu/n/v8M0AACM5/+/chgAADvL/79DBgAAjaf/vwAAAAD/f/+/QwYAAHFY/79yGAAAwzT/v8M0AAByGP+//38AAAAA/79xWAAAQwb/v////3/+//9/////f/7//3////9//v//f////3/+//9/////f////3////9//v//f////3/+//9//v//f/7//3////9//v//f////3////9/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_ulo4u")
+
+[node name="circle_token" instance=ExtResource("1_yj0pi")]
+
+[node name="Circle_001" parent="." index="1"]
+mesh = SubResource("ArrayMesh_pm7ux")

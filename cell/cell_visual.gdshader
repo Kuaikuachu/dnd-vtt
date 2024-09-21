@@ -47,17 +47,17 @@ void fragment() {
     // Calculate the center of the current cell based on the max cell size
     vec2 cell_coord = floor(UV / _max_cell_size);
     vec2 cell_center = cell_coord * _max_cell_size + _max_cell_size * 0.5;
-    
+
     // Animate the cell size using a sine wave function
     float animated_cell_size = mix(_min_cell_size, _max_cell_size * 0.75, (sin(TIME * cell_manipulation_anim_speed * 2.0 * PI) * 0.5) + 0.5);
 
     // Calculate the distance from the cell center to the target UV
     float cell_dist = distance(cell_center, cell_manipulator_uv_pos);
     float cell_dist_t = clamp(cell_dist / _target_radius, 0.0, 1.0);
-    
+
     float px_dist = distance(UV, cell_manipulator_uv_pos);
     float px_dist_t = clamp(px_dist / _target_radius, 0.0, 1.0);
-    
+
     // Determine the cell size based on the distance
     float _cell_size = mix(animated_cell_size, _max_cell_size, cell_dist_t);
     float size_t = _cell_size / _max_cell_size;
@@ -68,17 +68,17 @@ void fragment() {
 
     // Adjust the grid UV based on the calculated cell size to maintain uniform scaling
     vec2 adjusted_uv = (grid_uv - 0.5) * (_max_cell_size / _cell_size) + 0.5;
-    
+
     // Define the gutter size relative to the cell size
     float _gutter_size = gutter_size * _max_cell_size / _cell_size;
     float gutter_half = _gutter_size * 0.5;
-    
+
     vec4 _gutter_color = mix(manipulator_gutter_color, gutter_color, px_dist_t);
     vec4 noise = texture(gutter_noise, UV + (vec2(0, 1) * gutter_noise_speed * TIME));
     vec4 color_noise = vec4(noise.rgb * gutter_noise_color, 1.0);
     vec3 mixed_gutter_color = (_gutter_color + color_noise).rgb;
     mixed_gutter_color = mix(mixed_gutter_color, _gutter_color.rgb, px_dist_t);
-    
+
     // Determine the color based on the position within the cell
     if (adjusted_uv.x < gutter_half || adjusted_uv.x > 1.0 - gutter_half || adjusted_uv.y < gutter_half || adjusted_uv.y > 1.0 - gutter_half) {
         ALBEDO = mixed_gutter_color;
