@@ -71,7 +71,6 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Level/DragPlane"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.012722, -0.258359, 0.887891)
 shape = SubResource("BoxShape3D_mbo6n")
 
 [node name="CellVisual" parent="Level" instance=ExtResource("8_2n2qo")]
