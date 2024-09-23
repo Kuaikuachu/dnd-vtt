@@ -1,0 +1,80 @@
+[gd_scene load_steps=7 format=4 uid="uid://eouh8fgoddvn"]
+
+[ext_resource type="PackedScene" uid="uid://dqm54lhtu703m" path="res://scenes/DiceBase.tscn" id="1_jwrc3"]
+[ext_resource type="Script" path="res://scenes/take_parent_name.gd" id="2_qjn1k"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7rs8m"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_pffkl"]
+_surfaces = [{
+"aabb": AABB(-0.471405, -0.333333, -0.816497, 1.41421, 1.33333, 1.63299),
+"format": 34896613377,
+"index_count": 12,
+"index_data": PackedByteArray("AAACAAEAAAADAAIAAAABAAMAAQACAAMA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("VVX///9/AAD//wAA/38AAAAAAAAAAAAAAAAAAP//AAA=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ckure"]
+resource_name = "d4_Solid"
+_surfaces = [{
+"aabb": AABB(-0.471405, -0.333333, -0.816497, 1.41421, 1.33333, 1.63299),
+"format": 34896613383,
+"index_count": 12,
+"index_data": PackedByteArray("AQAHAAUAAgALAAgAAAAEAAoAAwAGAAkA"),
+"material": SubResource("StandardMaterial3D_7rs8m"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 12,
+"vertex_data": PackedByteArray("VVX///9/VOJVVf///3/86FVV////f8fE//8AAP9//////wAA/39U4v//AAD/f/zoAAAAAAAA//8AAAAAAAD86AAAAAAAAMfEAAAAAP////8AAAAA//9U4gAAAAD//8fENp4nh5vIPVMaf7He/3//PzaeJ4ebyD1T/3//P5vIPVMaf7He/3//PzaeJ4caf7He")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_pffkl")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_tql3f"]
+points = PackedVector3Array(0.942809, -0.333333, -0.00015986, -0.471405, -0.333333, 0.816497, -0.471405, -0.333333, -0.816497, -4.61638e-05, 1, -0.00015986)
+
+[node name="D4" instance=ExtResource("1_jwrc3")]
+size_modifier = 0.4
+
+[node name="D4" type="MeshInstance3D" parent="Model" index="0"]
+mesh = SubResource("ArrayMesh_ckure")
+skeleton = NodePath("")
+
+[node name="1" type="Marker3D" parent="Sides" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00598004, 1.00979, 0.000166982)
+
+[node name="TakeParentName" type="Label3D" parent="Sides/1" index="0"]
+billboard = 1
+text = "1"
+script = ExtResource("2_qjn1k")
+
+[node name="2" type="Marker3D" parent="Sides" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.479903, -0.265591, 0.85111)
+
+[node name="TakeParentName" type="Label3D" parent="Sides/2" index="0"]
+billboard = 1
+text = "2"
+script = ExtResource("2_qjn1k")
+
+[node name="3" type="Marker3D" parent="Sides" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.479903, -0.265591, -0.832945)
+
+[node name="TakeParentName" type="Label3D" parent="Sides/3" index="0"]
+billboard = 1
+text = "3"
+script = ExtResource("2_qjn1k")
+
+[node name="4" type="Marker3D" parent="Sides" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.970815, -0.381435, -0.000143409)
+
+[node name="TakeParentName" type="Label3D" parent="Sides/4" index="0"]
+billboard = 1
+text = "4"
+script = ExtResource("2_qjn1k")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="2"]
+shape = SubResource("ConvexPolygonShape3D_tql3f")

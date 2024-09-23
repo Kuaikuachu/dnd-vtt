@@ -1,0 +1,208 @@
+[gd_scene load_steps=7 format=4 uid="uid://pqwom6fpnp4o"]
+
+[ext_resource type="PackedScene" uid="uid://dqm54lhtu703m" path="res://scenes/DiceBase.tscn" id="1_kkarb"]
+[ext_resource type="Script" path="res://scenes/take_parent_name.gd" id="2_kpiyb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xxvpy"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_60xyl"]
+_surfaces = [{
+"aabb": AABB(-0.850651, -0.850651, -0.850651, 1.7013, 1.7013, 1.7013),
+"format": 34896613377,
+"index_count": 60,
+"index_data": PackedByteArray("AAAEAAgAAAAKAAUAAgAJAAQAAgAFAAsAAQAIAAYAAQAHAAoAAwAGAAkAAwALAAcAAAAIAAoAAQAKAAgAAgALAAkAAwAJAAsABAAAAAIABQACAAAABgADAAEABwABAAMACAAEAAYACQAGAAQACgAHAAUACwAFAAcA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 12,
+"vertex_data": PackedByteArray("////f+QwAAAAAP9/5DAAAP///38azwAAAAD/fxrPAAAaz////38AABrPAAD/fwAA5DD///9/AADkMAAA/38AAP9/Gs8AAAAA/38az///AAD/f+QwAAAAAP9/5DD//wAA")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_gib4m"]
+resource_name = "d20_Solid_003"
+_surfaces = [{
+"aabb": AABB(-0.850651, -0.850651, -0.850651, 1.7013, 1.7013, 1.7013),
+"format": 34896613383,
+"index_count": 60,
+"index_data": PackedByteArray("AQAXACoAAgA0ABwACwAvABYADAAbADkABgAsACEABwAmADYAEAAgADEAEQA7ACUAAAApADMABQA1ACsACgA4AC4ADwAwADoAGAADAA0AHQAOAAQAIgASAAgAJwAJABMAKAAVAB8ALQAeABQAMgAkABoANwAZACMA"),
+"material": SubResource("StandardMaterial3D_xxvpy"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 60,
+"vertex_data": PackedByteArray("////f+Qwvff///9/5DAE5f///3/kMBr7////f+QwU/////9/5DBT/wAA/3/kMK3zAAD/f+QwlvEAAP9/5DCT4QAA/3/kMIXFAAD/f+QwhcX///9/Gs+20P///38az4f2////fxrPveP///9/Gs9T/////38az1P/AAD/fxrPKbIAAP9/Gs9KwAAA/38az6zIAAD/fxrPhcUAAP9/Gs+FxRrP////f//yGs////9/Efcaz////3+H9hrP////fwTlGs////9/U/8azwAA/3//8hrPAAD/fxH3Gs8AAP9/veMazwAA/38a+xrPAAD/f1P/5DD///9///LkMP///38R9+Qw////f0rA5DD///9/lvHkMP///3+FxeQwAAD/f//y5DAAAP9/EffkMAAA/3+syOQwAAD/f5Ph5DAAAP9/hcX/fxrPAAAR9/9/Gs8AAL33/38azwAABOX/fxrPAACt8/9/Gs8AAJbx/38az/////L/fxrP//+20P9/Gs///4f2/38az///KbL/fxrP//9KwP9/5DAAABH3/3/kMAAAvff/f+QwAAAa+/9/5DAAAK3z/3/kMAAAk+H/f+Qw////8v9/5DD//7bQ/3/kMP//veP/f+Qw//8psv9/5DD//6zI9sSvUf+//z+uKPrKexTPM86zhGsfUErHjWRBwk5YXvTrfszcMqPq/guS4XObnnyX14++WXsUzzPOs4Rr0W8YmESHOLf/P/+/637M3DKj6v5+iVGwGLxYDZuefJf/v/8/exTPM4B2rU/mQ6by14++Wa4o+srOs4RrfolRsBi8WA1Ehzi3jWRBwut+zNyAdq1P5kOm8v8//79OWF70MqPq/hi8WA32xK9R/7//Px9QSseNZEHCfolRsAuS4XObnnyX0W8YmESHOLfmQ6by9sSvUa4o+sofUErHTlhe9IB2rU8LkuFz14++WdFvGJj/P/+/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_60xyl")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_50ukf"]
+points = PackedVector3Array(0.525578, 0.850484, -0.000166476, 0.850484, -0.000166476, -0.525745, -0.000166476, 0.525578, -0.850651, -0.525745, 0.850484, -0.000166476, -0.000166476, 0.525578, 0.850484, 0.850484, -0.000166476, 0.525578, 0.525578, -0.850651, -0.000166476, -0.000166476, -0.525745, -0.850651, -0.850651, -0.000166476, -0.525745, -0.850651, -0.000166476, 0.525578, -0.000166476, -0.525745, 0.850484, -0.525745, -0.850651, -0.000166476)
+
+[node name="D20" instance=ExtResource("1_kkarb")]
+size_modifier = 0.4
+
+[node name="D20" type="MeshInstance3D" parent="Model" index="0"]
+mesh = SubResource("ArrayMesh_gib4m")
+skeleton = NodePath("")
+
+[node name="18" type="Marker3D" parent="Sides" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0217717, 0.757839, 0.358165)
+
+[node name="TakeParentName" type="Label3D" parent="Sides/18" index="0"]
+billboard = 1
+text = "18"
+script = ExtResource("2_kpiyb")
+
+[node name="2" type="Marker3D" parent="Sides" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.744767, -0.396224)
+
+[node name="TakeParentName2" type="Label3D" parent="Sides/2" index="0"]
+billboard = 1
+text = "2"
+script = ExtResource("2_kpiyb")
+
+[node name="12" type="Marker3D" parent="Sides" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.460558, 0.483627, -0.535417)
+
+[node name="TakeParentName3" type="Label3D" parent="Sides/12" index="0"]
+billboard = 1
+text = "12"
+script = ExtResource("2_kpiyb")
+
+[node name="20" type="Marker3D" parent="Sides" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.443891, 0.483627, -0.515712)
+
+[node name="TakeParentName4" type="Label3D" parent="Sides/20" index="0"]
+billboard = 1
+text = "20"
+script = ExtResource("2_kpiyb")
+
+[node name="14" type="Marker3D" parent="Sides" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.77341, 0.380921, -0.00868672)
+
+[node name="TakeParentName4" type="Label3D" parent="Sides/14" index="0"]
+billboard = 1
+text = "14"
+script = ExtResource("2_kpiyb")
+
+[node name="6" type="Marker3D" parent="Sides" index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.797701, -0.30581, -0.00868672)
+
+[node name="TakeParentName4" type="Label3D" parent="Sides/6" index="0"]
+billboard = 1
+text = "6"
+script = ExtResource("2_kpiyb")
+
+[node name="9" type="Marker3D" parent="Sides" index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.519867, -0.45842, 0.529852)
+
+[node name="TakeParentName4" type="Label3D" parent="Sides/9" index="0"]
+billboard = 1
+text = "9"
+script = ExtResource("2_kpiyb")
+
+[node name="4" type="Marker3D" parent="Sides" index="7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.413441, 0.579286, 0.455441)
+
+[node name="TakeParentName4" type="Label3D" parent="Sides/4" index="0"]
+billboard = 1
+text = "4"
+script = ExtResource("2_kpiyb")
+
+[node name="5" type="Marker3D" parent="Sides" index="8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.40437, 0.579286, 0.455441)
+
+[node name="TakeParentName4" type="Label3D" parent="Sides/5" index="0"]
+billboard = 1
+text = "5"
+script = ExtResource("2_kpiyb")
+
+[node name="8" type="Marker3D" parent="Sides" index="9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.410334, 0.00306198, -0.730952)
+
+[node name="TakeParentName4" type="Label3D" parent="Sides/8" index="0"]
+billboard = 1
+text = "8"
+script = ExtResource("2_kpiyb")
+
+[node name="11" type="Marker3D" parent="Sides" index="10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.410334, 0.00306198, 0.740873)
+
+[node name="TakeParentName4" type="Label3D" parent="Sides/11" index="0"]
+billboard = 1
+text = "11"
+script = ExtResource("2_kpiyb")
+
+[node name="13" type="Marker3D" parent="Sides" index="11"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.343507, 0.00306198, 0.740873)
+
+[node name="TakeParentName4" type="Label3D" parent="Sides/13" index="0"]
+billboard = 1
+text = "13"
+script = ExtResource("2_kpiyb")
+
+[node name="10" type="Marker3D" parent="Sides" index="12"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.280558, 0.00306198, -0.803556)
+
+[node name="TakeParentName4" type="Label3D" parent="Sides/10" index="0"]
+billboard = 1
+text = "10"
+script = ExtResource("2_kpiyb")
+
+[node name="17" type="Marker3D" parent="Sides" index="13"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.482856, -0.421822, -0.503504)
+
+[node name="TakeParentName4" type="Label3D" parent="Sides/17" index="0"]
+billboard = 1
+text = "17"
+script = ExtResource("2_kpiyb")
+
+[node name="1" type="Marker3D" parent="Sides" index="14"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.482856, -0.421822, 0.512167)
+
+[node name="TakeParentName4" type="Label3D" parent="Sides/1" index="0"]
+billboard = 1
+text = "1"
+script = ExtResource("2_kpiyb")
+
+[node name="19" type="Marker3D" parent="Sides" index="15"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0300705, -0.75244, 0.367105)
+
+[node name="TakeParentName4" type="Label3D" parent="Sides/19" index="0"]
+billboard = 1
+text = "19"
+script = ExtResource("2_kpiyb")
+
+[node name="7" type="Marker3D" parent="Sides" index="16"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.738944, -0.329521, -0.0234789)
+
+[node name="TakeParentName4" type="Label3D" parent="Sides/7" index="0"]
+billboard = 1
+text = "7"
+script = ExtResource("2_kpiyb")
+
+[node name="16" type="Marker3D" parent="Sides" index="17"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.519268, -0.389561, -0.504638)
+
+[node name="TakeParentName4" type="Label3D" parent="Sides/16" index="0"]
+billboard = 1
+text = "16"
+script = ExtResource("2_kpiyb")
+
+[node name="3" type="Marker3D" parent="Sides" index="18"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0276483, -0.757236, -0.383874)
+
+[node name="TakeParentName4" type="Label3D" parent="Sides/3" index="0"]
+billboard = 1
+text = "3"
+script = ExtResource("2_kpiyb")
+
+[node name="15" type="Marker3D" parent="Sides" index="19"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.755454, 0.361901, 0.028307)
+
+[node name="TakeParentName4" type="Label3D" parent="Sides/15" index="0"]
+billboard = 1
+text = "15"
+script = ExtResource("2_kpiyb")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="." index="2"]
+shape = SubResource("ConvexPolygonShape3D_50ukf")

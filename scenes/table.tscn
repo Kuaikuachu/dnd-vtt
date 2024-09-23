@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://t6w3m5onix1r"]
+[gd_scene load_steps=7 format=3 uid="uid://t6w3m5onix1r"]
 
 [ext_resource type="Script" path="res://scenes/grid_manager.gd" id="1_68rol"]
 [ext_resource type="Script" path="res://scenes/table.gd" id="1_c4ryg"]
-[ext_resource type="PackedScene" uid="uid://dqm54lhtu703m" path="res://scenes/DiceBase.tscn" id="3_k2aoc"]
+[ext_resource type="PackedScene" uid="uid://pqwom6fpnp4o" path="res://dice/d_20.tscn" id="3_ggjxi"]
+[ext_resource type="PackedScene" uid="uid://eouh8fgoddvn" path="res://dice/d_4.tscn" id="4_ardkx"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ktptn"]
 rough = true
@@ -34,5 +35,8 @@ physics_material_override = SubResource("PhysicsMaterial_ktptn")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 shape = SubResource("BoxShape3D_yxubt")
 
-[node name="DiceBase" parent="." instance=ExtResource("3_k2aoc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.73738, 0)
+[node name="D20" parent="." instance=ExtResource("3_ggjxi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.53068, 0)
+
+[node name="D4" parent="." instance=ExtResource("4_ardkx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00858867, 3.3924, -7.50846e-10)
