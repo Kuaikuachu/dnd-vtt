@@ -1,15 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://t6w3m5onix1r"]
+[gd_scene load_steps=5 format=3 uid="uid://t6w3m5onix1r"]
 
 [ext_resource type="Script" path="res://scenes/grid_manager.gd" id="1_68rol"]
 [ext_resource type="Script" path="res://scenes/table.gd" id="1_c4ryg"]
-[ext_resource type="PackedScene" uid="uid://pqwom6fpnp4o" path="res://dice/d_20.tscn" id="3_ggjxi"]
-[ext_resource type="PackedScene" uid="uid://eouh8fgoddvn" path="res://dice/d_4.tscn" id="4_ardkx"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ktptn"]
-rough = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yxubt"]
-size = Vector3(10, 1, 10)
+size = Vector3(100, 1, 100)
 
 [node name="Table" type="Node3D" node_paths=PackedStringArray("gridman", "grid")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
@@ -34,9 +31,3 @@ physics_material_override = SubResource("PhysicsMaterial_ktptn")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TableCollision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 shape = SubResource("BoxShape3D_yxubt")
-
-[node name="D20" parent="." instance=ExtResource("3_ggjxi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.53068, 0)
-
-[node name="D4" parent="." instance=ExtResource("4_ardkx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00858867, 3.3924, -7.50846e-10)

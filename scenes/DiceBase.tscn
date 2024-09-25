@@ -2,17 +2,20 @@
 
 [ext_resource type="Script" path="res://scenes/dice_base.gd" id="1_qyvvb"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_lmbq2"]
-bounce = 0.2
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2qhgf"]
+bounce = 0.5
 
 [node name="DiceBase" type="RigidBody3D"]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
 collision_layer = 4
 collision_mask = 4
-mass = 5.0
-physics_material_override = SubResource("PhysicsMaterial_lmbq2")
-center_of_mass_mode = 1
+input_ray_pickable = false
+physics_material_override = SubResource("PhysicsMaterial_2qhgf")
+gravity_scale = 8.0
 script = ExtResource("1_qyvvb")
 
 [node name="Model" type="Node3D" parent="."]
 
 [node name="Sides" type="Node3D" parent="."]
+
+[node name="MouseInput" type="StaticBody3D" parent="."]

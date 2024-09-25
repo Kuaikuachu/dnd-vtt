@@ -69,14 +69,15 @@ func create_object(object_id, pos):
 	print("obj ",object)
 	var new_obj = object.instantiate()
 	print("new obj ",new_obj.name)
-	print("name to texture ", Globals.celist_node.name_to_texture)
+	#print("name to texture ", Globals.celist_node.name_to_texture)
 	if new_obj is TextureTerrain or new_obj is TextureToken:
 		new_obj.apply_mat(Globals.celist_node.name_to_texture[object_id])
 		
 	write_to_dict(new_obj, pos)
 	grid.add_child(new_obj)
 	new_obj.move_cell(pos)
-	new_obj.init_done()
+	if new_obj is TableObject:
+		new_obj.init_done()
 
 
 

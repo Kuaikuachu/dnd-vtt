@@ -63,15 +63,25 @@ func click():
 	var raycast = shoot_ray()
 	if !raycast.is_empty():
 		selected_object = raycast.collider.get_parent()
+		print("selected object ", selected_object, " collider ", raycast.collider)
 	timer.start()
+
+
+func release_held_object():
+	if held_object:
+		held_object._on_stop_held()
+		selected_object = null
+		held_object = null
+
 
 func hold():
 	if build_mode:
+		release_held_object()
 		return
 	current_collision_mask = drag_plane_collision_mask
 	held_object = selected_object
 	
-	if held_object is TableObject:
+	if held_object is TableObject or held_object is Dice:
 		held_object.start_held()
 	else:
 		held_object = null
@@ -79,13 +89,12 @@ func hold():
 		
 
 func stop_click():
-	var raycast = shoot_ray()
-	timer.stop()
-	
 	if build_mode:
 		create_object_at_mouse(Globals.celist.find_key(Globals.cell_debug.selected_scene))
 		return
 	
+	var raycast = shoot_ray()
+	timer.stop()
 	
 	if held_object:
 		## PUT ON_HOLD_STOP STUFF HERE 
@@ -127,7 +136,7 @@ func zoom_out():
 
 
 func _physics_process(delta: float) -> void:
-	
+	#print("held object - ",held_object, "selected object - ", selected_object)
 	
 	var input_dir = Input.get_vector("left", "right", "forward", "back")
 	var vertical_dir = Input.get_axis("down", "up")
@@ -144,11 +153,11 @@ func _physics_process(delta: float) -> void:
 		#Globals.main.cell_visual._set_manipulator_pos(raypulator["position"].x, raypulator["position"].z)
 	
 	
-	## PUT ON HOLD STUFF HERE
+	## ON HOLD STUFF HERE
 	if held_object:
 		var raycast = shoot_ray()
 		if !raycast.is_empty():
-			if held_object is TableObject:
+			if held_object is TableObject or held_object is Dice:
 				held_object.on_held(raycast["position"])
 				held_object.update_multiplayer_pos.rpc(held_object.global_position)
 			else:

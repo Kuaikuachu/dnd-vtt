@@ -112,3 +112,4 @@ pointing/emulate_mouse_from_touch=false
 [physics]
 
 3d/physics_engine="JoltPhysics3D"
+jolt_3d/solver/bounce_velocity_threshold=5.0

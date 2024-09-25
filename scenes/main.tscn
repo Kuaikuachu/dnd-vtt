@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dqffjjipet8pu"]
+[gd_scene load_steps=20 format=3 uid="uid://dqffjjipet8pu"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_8o0da"]
 [ext_resource type="PackedScene" uid="uid://bf8ibjhwgc07v" path="res://scenes/character_body_3d.tscn" id="1_fbubj"]
@@ -11,8 +11,10 @@
 [ext_resource type="Script" path="res://scenes/cell_debug.gd" id="6_p562j"]
 [ext_resource type="PackedScene" uid="uid://d2qotrc3t0aef" path="res://cell/playable/terrain_example_1.tscn" id="7_xfrct"]
 [ext_resource type="PackedScene" uid="uid://euerdqfv8hkm" path="res://cell/cell_visual.tscn" id="8_2n2qo"]
+[ext_resource type="PackedScene" uid="uid://pqwom6fpnp4o" path="res://dice/d_20.tscn" id="8_n5bcf"]
 [ext_resource type="PackedScene" uid="uid://d1yj6i7dldrum" path="res://cell/playable/terrain_example_2.tscn" id="8_tswe3"]
 [ext_resource type="PackedScene" uid="uid://b66gfwg27cfec" path="res://cell/playable/figure_example_1.tscn" id="9_2i3pi"]
+[ext_resource type="PackedScene" uid="uid://eouh8fgoddvn" path="res://dice/d_4.tscn" id="9_gd67i"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_we44t"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -36,7 +38,7 @@ table = NodePath("Level/Table")
 
 [node name="CellsList" type="Node" parent="."]
 script = ExtResource("2_bis5b")
-scenes = Array[PackedScene]([ExtResource("3_ji6q1"), ExtResource("4_xrduw"), ExtResource("9_2i3pi"), ExtResource("7_xfrct"), ExtResource("8_tswe3")])
+scenes = Array[PackedScene]([ExtResource("3_ji6q1"), ExtResource("4_xrduw"), ExtResource("9_2i3pi"), ExtResource("7_xfrct"), ExtResource("8_tswe3"), ExtResource("8_n5bcf"), ExtResource("9_gd67i")])
 
 [node name="Level" type="Node3D" parent="."]
 
@@ -76,7 +78,6 @@ shape = SubResource("BoxShape3D_mbo6n")
 [node name="CellVisual" parent="Level" instance=ExtResource("8_2n2qo")]
 unique_name_in_owner = true
 visible = false
-disabled = true
 
 [node name="Players" type="Node3D" parent="."]
 
