@@ -1,0 +1,136 @@
+[gd_scene load_steps=7 format=4 uid="uid://bx4hsh7ott313"]
+
+[ext_resource type="PackedScene" uid="uid://dqm54lhtu703m" path="res://scenes/DiceBase.tscn" id="1_6p8od"]
+[ext_resource type="Script" path="res://scenes/take_parent_name.gd" id="2_2sjhc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8ve6g"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_fqedh"]
+_surfaces = [{
+"aabb": AABB(-0.951057, -1, -1, 1.90211, 2, 2),
+"format": 34896613377,
+"index_count": 60,
+"index_data": PackedByteArray("BQAIAAcABQAJAAgABQAGAAEABQAHAAYACwADAAIACwAEAAMABQAEAAAABQADAAQABQAKAAkABQAAAAoACwABAAYACwACAAEACwAHAAgACwAGAAcACwAJAAoACwAIAAkACgAEAAsACgAAAAQABQACAAMABQABAAIA"),
+"lods": [0.541882, PackedByteArray("BQAIAAEABQAJAAgACwADAAIACwAEAAMABQADAAQABQAEAAkABQACAAMABQABAAIACwACAAEACwABAAgACwAJAAQACwAIAAkA")],
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 12,
+"vertex_data": PackedByteArray("/39RmAAAAADkMFGYjOcAAAAA/3+NpwAAAABRmHFYAADkMP9/chgAAP9/////fwAA/3//f///AAAaz1GYjOcAAP///3+NpwAA//9RmHFYAAAaz/9/chgAAP9/AAD/fwAA")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_gtrlo"]
+resource_name = "d10_Cone"
+_surfaces = [{
+"aabb": AABB(-0.951057, -1, -1, 1.90211, 2, 2),
+"attribute_data": PackedByteArray("/38AAP9/AAD/fwAAwzSM5zvLjOfDNIznu/mNp0MGjae7+Y2nQwZxWEMGcVi7+XFYO8tyGMM0chg7y3IY/3//f/9//3//f/9//3//f/9//3//f////3////9///87y4znwzSM5zvLjOdDBo2nu/mNp0MGjae7+XFYu/lxWEMGcVjDNHIYO8tyGMM0chj/f/9//3//f/9//3//f/9//3//f8M0jOc7y4znu/mNp0MGcVg7y3IY/3//f/9//3//f/9/QwaNp7v5cVhDBnFY/3//f/9//3//f/9/"),
+"format": 34896613399,
+"index_count": 60,
+"index_data": PackedByteArray("EQAbABkAEQAeABsADwAUAAMADwAXABQAJwALAAgAJwAOAAsAEgANAAIAEgAJAA0AEAAhAB0AEAABACEAJgAEABYAJgAGAAQAJAAYABoAJAAVABgAJQAfACIAJQAcAB8AIAAMACMAIAAAAAwAEwAHAAoAEwAFAAcA"),
+"lods": [0.541882, PackedByteArray("LQAbAAMALQAxABsAMwALACoAMwAsAAsALwArAA0ALwANAB0ALgAHACsALgAoAAcANQAGACkANQApABoANAAyAAwANAAwADIA")],
+"material": SubResource("StandardMaterial3D_8ve6g"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 54,
+"vertex_data": PackedByteArray("/39RmAAA////f1GYAABM2v9/UZgAAEza5DBRmIzn/5/kMFGYjOe06eQwUZiM5+29AAD/f42n7ugAAP9/jaftvQAA/3+Npx/rAABRmHFYS9oAAFGYcVjuvQAAUZhxWBLr5DD/f3IY///kMP9/chhL2uQw/39yGAbr/3////9//5//f////39L2v9/////f+29/3////9/S9r/f////3/tvf9//3////+f/3//f///e+r/f/9///976hrPUZiM5/+fGs9RmIzntOkaz1GYjOftvf///3+Np+7o////f42n7b3///9/jacf6///UZhxWEva//9RmHFY7r3//1GYcVgS6xrP/39yGP//Gs//f3IYS9oaz/9/chgG6/9/AAD/f////38AAP9/tOn/fwAA/38S6/9/AAD/f7Tp/38AAP9/EuvkMFGYjOduteQwUZiM58rpAAD/f42nk+8AAFGYcVhPyuQw/39yGILy/3////9/yq3/f////39ptf9/////f9Te////f42nk+///1GYcVhmuv//UZhxWIvt/38AAP9/gvL/fwAA/38q9P9/AAD/fxjuLqL//4baZGdj53il6/+9fxvaDPQN5ZO80tln9A7lk7zQxiXmVud9pQ7lk7zExjHmLqL//13neqW3xj3m////f4PaXWdqww5lXed6pQ7lk7z///9/TIxlWmXasvO8/xKA8YscWmrDDmWWi9JZasMOZdmZ0UaA2ldnasMPZcyZxEYuov//g9pdZ8CZt0Yuov//8YscWsyZxEYb2gz0xMYx5jLb5qRA5039csGd5Ebkla7spBLbIeIiYiHb3KQv75+FYZtzQVrICmO1lVZD7KQS2w2ZDRk3czyR")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_fqedh")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_sb0b2"]
+points = PackedVector3Array(-0.000186145, -0.000195742, 1, -0.000186145, -1, -0.000195742, 0.587614, 0.189898, 0.808927, -0.000186145, 1, -0.000195742, -0.587801, 0.189898, 0.808927, -0.587801, -0.000195742, -0.809123, -0.000186145, 0.189898, -1, 0.587614, -0.000195742, -0.809123, 0.951057, 0.189898, -0.309123, 0.951057, -0.000195742, 0.308927, -0.951057, -0.000195742, 0.308927, -0.951057, 0.189898, -0.309123)
+
+[node name="D10" instance=ExtResource("1_6p8od")]
+real_name = "D10"
+
+[node name="D10" type="MeshInstance3D" parent="Model" index="0"]
+mesh = SubResource("ArrayMesh_gtrlo")
+skeleton = NodePath("")
+
+[node name="10" type="Marker3D" parent="Sides" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.554671, 0.518557, 0.203436)
+
+[node name="TakeParentName" type="Label3D" parent="Sides/10" index="0"]
+billboard = 1
+text = "10"
+script = ExtResource("2_2sjhc")
+
+[node name="8" type="Marker3D" parent="Sides" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0945622, 0.518557, 0.574711)
+
+[node name="TakeParentName" type="Label3D" parent="Sides/8" index="0"]
+billboard = 1
+text = "8"
+script = ExtResource("2_2sjhc")
+
+[node name="4" type="Marker3D" parent="Sides" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.372924, 0.518557, -0.506512)
+
+[node name="TakeParentName" type="Label3D" parent="Sides/4" index="0"]
+billboard = 1
+text = "4"
+script = ExtResource("2_2sjhc")
+
+[node name="6" type="Marker3D" parent="Sides" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.36832, 0.518557, -0.506512)
+
+[node name="TakeParentName" type="Label3D" parent="Sides/6" index="0"]
+billboard = 1
+text = "6"
+script = ExtResource("2_2sjhc")
+
+[node name="2" type="Marker3D" parent="Sides" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.501333, 0.518557, 0.236714)
+
+[node name="TakeParentName" type="Label3D" parent="Sides/2" index="0"]
+billboard = 1
+text = "2"
+script = ExtResource("2_2sjhc")
+
+[node name="3" type="Marker3D" parent="Sides" index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.772799, -0.191629, -0.313684)
+
+[node name="TakeParentName" type="Label3D" parent="Sides/3" index="0"]
+billboard = 1
+text = "3"
+script = ExtResource("2_2sjhc")
+
+[node name="7" type="Marker3D" parent="Sides" index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0296546, -0.243666, -0.641887)
+
+[node name="TakeParentName" type="Label3D" parent="Sides/7" index="0"]
+billboard = 1
+text = "7"
+script = ExtResource("2_2sjhc")
+
+[node name="1" type="Marker3D" parent="Sides" index="7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.674715, -0.208002, -0.233632)
+
+[node name="TakeParentName" type="Label3D" parent="Sides/1" index="0"]
+billboard = 1
+text = "1"
+script = ExtResource("2_2sjhc")
+
+[node name="9" type="Marker3D" parent="Sides" index="8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.408961, -0.208002, 0.571288)
+
+[node name="TakeParentName" type="Label3D" parent="Sides/9" index="0"]
+billboard = 1
+text = "9"
+script = ExtResource("2_2sjhc")
+
+[node name="5" type="Marker3D" parent="Sides" index="9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.586556, -0.191629, 0.470563)
+
+[node name="TakeParentName" type="Label3D" parent="Sides/5" index="0"]
+billboard = 1
+text = "5"
+script = ExtResource("2_2sjhc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="2"]
+shape = SubResource("ConvexPolygonShape3D_sb0b2")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="MouseInput" index="0"]
+shape = SubResource("ConvexPolygonShape3D_sb0b2")
+
+[connection signal="sleeping_state_changed" from="." to="." method="_on_sleeping_state_changed"]

@@ -1,0 +1,117 @@
+[gd_scene load_steps=7 format=4 uid="uid://bh3yjm40h16eq"]
+
+[ext_resource type="PackedScene" uid="uid://dqm54lhtu703m" path="res://scenes/DiceBase.tscn" id="1_ytcm5"]
+[ext_resource type="Script" path="res://scenes/take_parent_name.gd" id="2_2r6vf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jdr8t"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_dni8i"]
+_surfaces = [{
+"aabb": AABB(-1, -1, -1, 2, 2, 2),
+"format": 34896613377,
+"index_count": 24,
+"index_data": PackedByteArray("BAACAAAABAABAAIABAADAAEABAAAAAMABQAAAAIABQACAAEABQABAAMABQADAAAA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 6,
+"vertex_data": PackedByteArray("////f/9/AAAAAP9//38AAP9//38AAAAA/3//f///AAD/f////38AAP9/AAD/fwAA")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_2676f"]
+resource_name = "d8_Solid_001"
+_surfaces = [{
+"aabb": AABB(-1, -1, -1, 2, 2, 2),
+"format": 34896613383,
+"index_count": 24,
+"index_data": PackedByteArray("EQAIAAEAEwAFAAoAEgAOAAQAEAAAAAwAFQADAAkAFwALAAcAFgAGAA8AFAANAAIA"),
+"material": SubResource("StandardMaterial3D_jdr8t"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("////f/9/h/b///9//38E5f///3//f73j////f/9/GvsAAP9//39KwAAA/3//f5bxAAD/f/9/rMgAAP9//3+T4f9//38AAATl/3//fwAAGvv/f/9/AACW8f9//38AAJPh/3//f///h/b/f/9///+94/9//3///0rA/3//f///rMj/f////3+H9v9/////fwTl/3////9/SsD/f////3+W8f9/AAD/f73j/38AAP9/Gvv/fwAA/3+syP9/AAD/f5Phm558l/+//z/Xj75Zrij6ykSHOLeNZEHC/z//v05YXvT/v/8/rij6yo1kQcJOWF70m558l9ePvllEhzi3/z//v5uefJf/v/8/RIc4t41kQcLXj75Zrij6yv8//79OWF70")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_dni8i")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_w5wgy"]
+points = PackedVector3Array(-0.000195742, 1, -0.000195742, 1, -0.000195742, -0.000195742, -0.000195742, -0.000195742, -1, -1, -0.000195742, -0.000195742, -0.000195742, -0.000195742, 1, -0.000195742, -1, -0.000195742)
+
+[node name="D8" instance=ExtResource("1_ytcm5")]
+real_name = "D8"
+
+[node name="D8" type="MeshInstance3D" parent="Model" index="0"]
+mesh = SubResource("ArrayMesh_2676f")
+skeleton = NodePath("")
+
+[node name="8" type="Marker3D" parent="Sides" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.350179, 0.483753, 0.412897)
+
+[node name="TakeParentName" type="Label3D" parent="Sides/8" index="0"]
+billboard = 1
+text = "8"
+script = ExtResource("2_2r6vf")
+
+[node name="6" type="Marker3D" parent="Sides" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.32845, 0.483753, 0.412897)
+
+[node name="TakeParentName" type="Label3D" parent="Sides/6" index="0"]
+billboard = 1
+text = "6"
+script = ExtResource("2_2r6vf")
+
+[node name="3" type="Marker3D" parent="Sides" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.32845, -0.351409, 0.412897)
+
+[node name="TakeParentName" type="Label3D" parent="Sides/3" index="0"]
+billboard = 1
+text = "3"
+script = ExtResource("2_2r6vf")
+
+[node name="5" type="Marker3D" parent="Sides" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.409458, -0.351409, 0.412897)
+
+[node name="TakeParentName" type="Label3D" parent="Sides/5" index="0"]
+billboard = 1
+text = "5"
+script = ExtResource("2_2r6vf")
+
+[node name="7" type="Marker3D" parent="Sides" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.409458, -0.351409, -0.372013)
+
+[node name="TakeParentName" type="Label3D" parent="Sides/7" index="0"]
+billboard = 1
+text = "7"
+script = ExtResource("2_2r6vf")
+
+[node name="2" type="Marker3D" parent="Sides" index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.409458, 0.465401, -0.372013)
+
+[node name="TakeParentName" type="Label3D" parent="Sides/2" index="0"]
+billboard = 1
+text = "2"
+script = ExtResource("2_2r6vf")
+
+[node name="4" type="Marker3D" parent="Sides" index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.366799, 0.465401, -0.372013)
+
+[node name="TakeParentName" type="Label3D" parent="Sides/4" index="0"]
+billboard = 1
+text = "4"
+script = ExtResource("2_2r6vf")
+
+[node name="1" type="Marker3D" parent="Sides" index="7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.366799, -0.368407, -0.372013)
+
+[node name="TakeParentName" type="Label3D" parent="Sides/1" index="0"]
+billboard = 1
+text = "1"
+script = ExtResource("2_2r6vf")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." index="2"]
+shape = SubResource("ConvexPolygonShape3D_w5wgy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MouseInput" index="0"]
+shape = SubResource("ConvexPolygonShape3D_w5wgy")
+
+[connection signal="sleeping_state_changed" from="." to="." method="_on_sleeping_state_changed"]

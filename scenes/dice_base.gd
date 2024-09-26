@@ -3,8 +3,6 @@ class_name Dice
 
 @export var real_name : String = ""
 
-@export var collision : CollisionShape3D
-
 @export var correction_modifier : float = 15
 
 @export var speed_limit : float = 10
@@ -21,14 +19,16 @@ var held : bool = false
 var desired_position : Vector3 = Vector3.ZERO
 
 
+func _init():
+	real_name = name
+
+
 func _ready():
 	var rand_x = randi_range(-180, 180)
 	var rand_y = randi_range(-180, 180)
 	var rand_z = randi_range(-180, 180)
 	
 	self.rotation = Vector3(rand_x, rand_y, rand_z)
-	
-	print(collision)
 
 
 func _physics_process(delta: float) -> void:
