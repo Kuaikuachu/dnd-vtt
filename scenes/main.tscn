@@ -47,12 +47,12 @@ scenes = Array[PackedScene]([ExtResource("3_ji6q1"), ExtResource("4_xrduw"), Ext
 [node name="Level" type="Node3D" parent="."]
 
 [node name="MovePointY" type="Node3D" parent="Level"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, 0)
 
 [node name="MovePointX" type="Node3D" parent="Level/MovePointY"]
 
 [node name="CameraMount" type="Node3D" parent="Level/MovePointY/MovePointX"]
-transform = Transform3D(1, 6.32523e-08, 2.70747e-08, -6.32523e-08, 0.690302, 0.723522, 2.70747e-08, -0.723522, 0.690302, -2.62268e-07, 3, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.52165e-07, 0, 4.98136)
 
 [node name="PlayerCamera" type="Camera3D" parent="Level/MovePointY/MovePointX/CameraMount"]
 unique_name_in_owner = true

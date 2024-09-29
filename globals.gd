@@ -6,6 +6,8 @@ var cell_debug : Node2D
 
 var main : Node3D
 
+var player
+
 var gridman : Node
 
 var celist : Dictionary

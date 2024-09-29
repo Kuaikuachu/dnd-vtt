@@ -21,6 +21,8 @@ var selected_object : Node3D
 var movement_enabled : bool = false
 var build_mode : bool = false
 
+var top_view : bool = false
+
 var sensitivity : float = 0.01
 
 @export var camera_speed : float = 0.1
@@ -46,6 +48,15 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("zoom_out"):
 		zoom_out()
 	
+	if event.is_action_pressed("top_view"):
+		if projection == PROJECTION_PERSPECTIVE:
+			projection = PROJECTION_ORTHOGONAL
+		else:
+			projection = PROJECTION_PERSPECTIVE
+		top_view = !top_view
+		move_point_x.rotation = Vector3(-(PI/2), 0, 0)
+		pass
+	
 	if event.is_action_pressed("build_mode"):
 		$"../../../../../VBoxContainer/Button".grab_focus()
 		build_mode = true
@@ -58,12 +69,14 @@ func _unhandled_input(event: InputEvent) -> void:
 	if movement_enabled and event is InputEventMouseMotion:
 		move_point_y.rotate_y(-event.relative.x * sensitivity)
 		move_point_x.rotate_x(-event.relative.y * sensitivity)
+	if top_view:
+		move_point_x.rotation.x = -(PI/2)
 
 func click():
 	var raycast = shoot_ray()
 	if !raycast.is_empty():
 		selected_object = raycast.collider.get_parent()
-		print("selected object ", selected_object, " collider ", raycast.collider)
+		#print("selected object ", selected_object, " collider ", raycast.collider)
 	timer.start()
 
 
@@ -81,8 +94,8 @@ func hold():
 	current_collision_mask = drag_plane_collision_mask
 	held_object = selected_object
 	
-	if held_object is TableObject or held_object is Dice:
-		held_object.start_held()
+	if (held_object is TableObject or held_object is Dice) and (held_object.authority_player == "" or held_object.authority_player == Globals.player.name):
+		held_object.start_held(Globals.player.name)
 	else:
 		held_object = null
 		current_collision_mask = normal_collision_mask
@@ -105,7 +118,8 @@ func stop_click():
 			return
 		
 		var pos = raycast["position"]
-		held_object.move_cell.rpc(pos)
+		if held_object is TableObject:
+			held_object.move_cell.rpc(pos)
 		
 		selected_object = null
 		held_object = null
@@ -114,8 +128,19 @@ func stop_click():
 
 
 func right_click():
+	if build_mode:
+		delete_object_on_cursor()
+		return
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	movement_enabled = true
+
+
+func delete_object_on_cursor():
+	var raycast = shoot_ray(normal_collision_mask)
+	
+	if !raycast.is_empty():
+		if raycast.collider is TableObject or Dice:
+			raycast.collider.get_parent().self_destruct.rpc()
 
 
 func stop_right_click():
@@ -138,6 +163,10 @@ func zoom_out():
 func _physics_process(delta: float) -> void:
 	#print("held object - ",held_object, "selected object - ", selected_object)
 	
+	if projection == PROJECTION_ORTHOGONAL:
+		var zoom = camera_mount.position.distance_to(move_point_x.position)
+		size = zoom * 2
+	
 	var input_dir = Input.get_vector("left", "right", "forward", "back")
 	var vertical_dir = Input.get_axis("down", "up")
 		
@@ -157,9 +186,11 @@ func _physics_process(delta: float) -> void:
 	if held_object:
 		var raycast = shoot_ray()
 		if !raycast.is_empty():
-			if held_object is TableObject or held_object is Dice:
+			if held_object is TableObject:
 				held_object.on_held(raycast["position"])
 				held_object.update_multiplayer_pos.rpc(held_object.global_position)
+			if held_object is Dice:
+				held_object.on_held(raycast["position"])
 			else:
 				stop_click()
 
@@ -200,3 +231,7 @@ func create_object_at_mouse(object_id):
 
 func _on_main_ready() -> void:
 	gridman = Globals.gridman
+
+
+func _ready() -> void:
+	Globals.player = self

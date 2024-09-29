@@ -118,9 +118,8 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_gujsw")
 
-[node name="D4" node_paths=PackedStringArray("collision") instance=ExtResource("1_jwrc3")]
+[node name="D4" instance=ExtResource("1_jwrc3")]
 real_name = "D4"
-collision = NodePath("MouseInput/CollisionShape3D2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="0"]
 shape = SubResource("ConvexPolygonShape3D_tql3f")

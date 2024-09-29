@@ -17,6 +17,8 @@ func _ready() -> void:
 func _on_host_pressed():
 	peer.create_server(int($VBoxContainer/HBoxContainer/LineEdit.text))
 	multiplayer.multiplayer_peer = peer
+	Globals.player.name = str(multiplayer.get_unique_id())
+	print(Globals.player.name, " is hosting")
 
 func _on_join_pressed():
 	peer.create_client($VBoxContainer/HBoxContainer2/LineEdit2.text, int($VBoxContainer/HBoxContainer2/LineEdit.text))
@@ -38,7 +40,8 @@ func _on_player_disconnected(id):
 
 
 func _on_connected_ok():
-	pass
+	Globals.player.name = str(multiplayer.get_unique_id())
+	print(Globals.player.name, " connected")
 
 
 func _on_connected_fail():

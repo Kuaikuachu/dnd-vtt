@@ -16,6 +16,7 @@ var grid_position : Vector2i
 var selected : bool = false
 var held : bool = false
 
+var authority_player : String = ""
 
 func init_done():
 	pass
@@ -23,13 +24,15 @@ func init_done():
 
 @rpc("call_local","any_peer", "reliable")
 func move_cell(pos):
+	print(gridman.grid_dict)
 	if by_grid:
 		grid_position = gridman.get_cell_from_real_position(pos)
 		update_pos.rpc()
 	else:
-		Globals.gridman.write_to_dict(self, pos)
 		global_position = pos
-
+	gridman.write_to_dict(self, global_position)
+	print("")
+	print(gridman.grid_dict)
 
 @rpc("call_local","any_peer", "reliable")
 func update_pos():
@@ -48,9 +51,10 @@ func return_collisions():
 			i.set_collision_layer_value(1, true)
 
 
-func start_held():
+func start_held(id):
 	held = true
 	hide_collisions()
+	authority_player = str(id)
 
 
 func clicked():
@@ -62,10 +66,17 @@ func on_held(pos):
 		global_position = Vector3(pos.x, pos.y + y_offset, pos.z)
 
 
-@rpc("any_peer")
+@rpc("any_peer", "reliable")
 func update_multiplayer_pos(pos):
 	global_position = pos
 
 
 func _on_stop_held():
 	held = false
+	authority_player = ""
+
+
+@rpc("call_local","any_peer","reliable")
+func self_destruct():
+	Globals.gridman.grid_dict.erase(self)
+	queue_free()

@@ -56,19 +56,19 @@ func coord_to_cell_transition(coord : float, horizontal : bool) -> int:
 		cell_coord = -(cell_coord - grid_vertical / 2)
 	return cell_coord
 
-@rpc("call_local", "any_peer")
+@rpc("call_local", "any_peer", "reliable")
 func create_object(object_id, pos):
 	var object
-	print("obj_id ",object_id)
+	#print("obj_id ",object_id)
 	if object_id is PackedScene:
 		object = object_id
-		print("packed scene")
+		#print("packed scene")
 	else:
-		print("scene from string VVV")
+		#print("scene from string VVV")
 		object = Globals.celist_node.get_scene_from_string(object_id)
-	print("obj ",object)
+	#print("obj ",object)
 	var new_obj = object.instantiate()
-	print("new obj ",new_obj.name)
+	#print("new obj ",new_obj.name)
 	#print("name to texture ", Globals.celist_node.name_to_texture)
 	if new_obj is TextureTerrain or new_obj is TextureToken:
 		new_obj.apply_mat(Globals.celist_node.name_to_texture[object_id])
@@ -82,6 +82,7 @@ func create_object(object_id, pos):
 
 
 func write_to_dict(object : Node3D, pos : Vector3):
+	#print("creating ", object.real_name, " on ", get_cell_from_real_position(pos))
 	if grid_dict.erase(object):
 		if Globals.debug_mode:
 			#print("object existed, deleted and written again")

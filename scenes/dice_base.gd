@@ -11,6 +11,10 @@ class_name Dice
 
 @onready var sides: Node3D = $Sides
 
+@onready var authority_timeout: Timer = $AuthorityTimeout
+
+var authority_player : String = ""
+
 var up_for_calc : bool = false
 
 var selected : bool = false
@@ -18,6 +22,7 @@ var held : bool = false
 
 var desired_position : Vector3 = Vector3.ZERO
 
+var bodies_interacted : Array
 
 func _init():
 	real_name = name
@@ -32,8 +37,16 @@ func _ready():
 
 
 func _physics_process(delta: float) -> void:
-	if self.angular_velocity.length() + self.linear_velocity.length() < 0.3:
+	
+	## IF NOT AUTHORITY
+	if authority_player != Globals.player.name and authority_player != "":
+		freeze_unfreeze(true)
+		return
+	
+	if self.angular_velocity.length() + self.linear_velocity.length() < 0.3 and not held:
 		calc_up_side()
+	else:
+		authority_timeout.start()
 	
 	if held:
 		var vel = correction_modifier * global_position.direction_to(desired_position) * global_position.distance_to(desired_position)
@@ -47,6 +60,21 @@ func _physics_process(delta: float) -> void:
 			#linear_velocity = global_position.direction_to(desired_position) * global_position.distance_to(desired_position)
 		#else:
 			#linear_velocity = linear_velocity * 0.5
+	
+	
+	## IF SELF IS AUTHORITY
+	if authority_player == Globals.player.name:
+		#print("authority is ", authority_player)
+		update_multiplayer_pos.rpc(get_global_transform())
+	## SYNC FOR HOST IF NO ONE IS AUTHORITY
+	elif authority_player == "" and Globals.player.name == "1":
+		update_multiplayer_pos.rpc(get_global_transform())
+		freeze_unfreeze(false)
+	## IF NOT SELF IS AUTHORITY
+
+
+func freeze_unfreeze(boolean : bool):
+	freeze = boolean
 
 
 func calc_up_side():
@@ -59,10 +87,12 @@ func calc_up_side():
 	return highest_marker.name
 
 
-func start_held():
+func start_held(id):
+	freeze_unfreeze(false)
 	up_for_calc = true
 	hide_collisions()
 	held = true
+	set_authority_global.rpc(str(id))
 
 
 func clicked():
@@ -94,9 +124,9 @@ func return_collisions():
 			i.set_collision_layer_value(1, true)
 
 
-@rpc("any_peer")
-func update_multiplayer_pos(pos):
-	global_position = pos
+@rpc("any_peer", "call_remote", "reliable")
+func update_multiplayer_pos(transf : Transform3D):
+	self.global_transform = transf
 
 
 func _on_stop_held():
@@ -114,6 +144,41 @@ func _on_stop_held():
 func _on_sleeping_state_changed() -> void:
 	if !up_for_calc:
 		return
-	if angular_velocity.length() < 0.1 and linear_velocity.length() < 0.1:
+	if angular_velocity.length() < 0.1 and linear_velocity.length() < 0.1 and not held:
+		sleeping = true
 		print("rolled ", calc_up_side())
+		print(Globals.player.name, " ", global_position)
+		freeze_unfreeze(false)
+		
 		up_for_calc = false
+		set_authority_global.rpc("")
+		clear_interacted_authorities()
+
+
+@rpc("call_local","any_peer","reliable")
+func self_destruct():
+	Globals.gridman.grid_dict.erase(self)
+	queue_free()
+
+
+@rpc("call_local","reliable","any_peer")
+func set_authority_global(string : String = ""):
+	authority_player = string
+
+
+func _on_body_entered(body: Node) -> void:
+	if body is Dice:
+		bodies_interacted.append(body)
+		body.set_authority_global.rpc(authority_player)
+
+
+func clear_interacted_authorities():
+	for body in bodies_interacted:
+		if !is_instance_valid(body):
+			continue
+		body.set_authority_global.rpc("")
+		bodies_interacted.clear()
+
+
+func _on_authority_timeout_timeout() -> void:
+	authority_player = ""

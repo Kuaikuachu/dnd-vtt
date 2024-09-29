@@ -145,3 +145,5 @@ shape = SubResource("ConvexPolygonShape3D_v5x3y")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="MouseInput" index="0"]
 shape = SubResource("ConvexPolygonShape3D_v5x3y")
+
+[connection signal="sleeping_state_changed" from="." to="." method="_on_sleeping_state_changed"]
