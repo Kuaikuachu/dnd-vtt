@@ -94,7 +94,7 @@ func hold():
 	current_collision_mask = drag_plane_collision_mask
 	held_object = selected_object
 	
-	if (held_object is TableObject or held_object is Dice) and (held_object.authority_player == "" or held_object.authority_player == Globals.player.name):
+	if held_object is TableObject or held_object is Dice:
 		held_object.start_held(Globals.player.name)
 	else:
 		held_object = null
