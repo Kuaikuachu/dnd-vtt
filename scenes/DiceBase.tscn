@@ -1,16 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://dqm54lhtu703m"]
+[gd_scene load_steps=4 format=3 uid="uid://dqm54lhtu703m"]
 
 [ext_resource type="Script" path="res://scenes/dice_base.gd" id="1_qyvvb"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2qhgf"]
+friction = 0.9
 bounce = 0.3
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_o8gx7"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:linear_velocity")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:angular_velocity")
+properties/3/spawn = true
+properties/3/replication_mode = 1
 
 [node name="DiceBase" type="RigidBody3D"]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
 collision_layer = 4
 collision_mask = 4
 input_ray_pickable = false
-mass = 5.0
 physics_material_override = SubResource("PhysicsMaterial_2qhgf")
 gravity_scale = 8.0
 freeze_mode = 1
@@ -24,6 +38,9 @@ script = ExtResource("1_qyvvb")
 
 [node name="AuthorityTimeout" type="Timer" parent="."]
 one_shot = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_o8gx7")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="AuthorityTimeout" to="." method="_on_authority_timeout_timeout"]

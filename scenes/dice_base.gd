@@ -37,6 +37,8 @@ func _ready():
 
 
 func _physics_process(delta: float) -> void:
+	if authority_player != "":
+		set_multiplayer_authority(int(authority_player))
 	
 	## IF NOT AUTHORITY
 	if authority_player != Globals.player.name and authority_player != "":
@@ -63,13 +65,13 @@ func _physics_process(delta: float) -> void:
 	
 	
 	## IF SELF IS AUTHORITY
-	if authority_player == Globals.player.name:
+	#if authority_player == Globals.player.name:
 		#print("authority is ", authority_player)
-		update_multiplayer_pos.rpc(get_global_transform())
+		#update_multiplayer_pos.rpc(get_global_transform())
 	## SYNC FOR HOST IF NO ONE IS AUTHORITY
-	elif authority_player == "" and Globals.player.name == "1":
-		update_multiplayer_pos.rpc(get_global_transform())
-		freeze_unfreeze(false)
+	#elif authority_player == "" and Globals.player.name == "1":
+		#update_multiplayer_pos.rpc(get_global_transform())
+		#freeze_unfreeze(false)
 	## IF NOT SELF IS AUTHORITY
 
 
