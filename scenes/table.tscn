@@ -1,12 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://t6w3m5onix1r"]
+[gd_scene load_steps=8 format=3 uid="uid://t6w3m5onix1r"]
 
 [ext_resource type="Script" path="res://scenes/grid_manager.gd" id="1_68rol"]
 [ext_resource type="Script" path="res://scenes/table.gd" id="1_c4ryg"]
+[ext_resource type="Texture2D" uid="uid://dcoo3unc03gpx" path="res://custom/2dterrain/wood 18 - 256x256.png" id="3_jixxv"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ktptn"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yxubt"]
 size = Vector3(100, 1, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_okjfs"]
+albedo_texture = ExtResource("3_jixxv")
+uv1_scale = Vector3(0.175, 0.175, 0.175)
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_75vt3"]
+material = SubResource("StandardMaterial3D_okjfs")
+size = Vector3(50, 1, 50)
 
 [node name="Table" type="Node3D" node_paths=PackedStringArray("gridman", "grid")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
@@ -23,7 +34,6 @@ grid = NodePath("../Grid")
 [node name="Grid" type="Node3D" parent="."]
 
 [node name="TableCollision" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.466409, 0)
 collision_layer = 4
 collision_mask = 4
 physics_material_override = SubResource("PhysicsMaterial_ktptn")
@@ -31,3 +41,7 @@ physics_material_override = SubResource("PhysicsMaterial_ktptn")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TableCollision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 shape = SubResource("BoxShape3D_yxubt")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh = SubResource("BoxMesh_75vt3")

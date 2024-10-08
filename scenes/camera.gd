@@ -81,6 +81,7 @@ func click():
 
 
 func release_held_object():
+	print("release_held_object()")
 	if held_object:
 		held_object._on_stop_held()
 		selected_object = null
@@ -88,6 +89,7 @@ func release_held_object():
 
 
 func hold():
+	print("hold()")
 	if build_mode:
 		release_held_object()
 		return
@@ -102,6 +104,7 @@ func hold():
 		
 
 func stop_click():
+	print("stop_click()")
 	if build_mode:
 		create_object_at_mouse(Globals.celist.find_key(Globals.cell_debug.selected_scene))
 		return
@@ -187,12 +190,14 @@ func _physics_process(delta: float) -> void:
 		var raycast = shoot_ray()
 		if !raycast.is_empty():
 			if held_object is TableObject:
+				print("is table object")
 				held_object.on_held(raycast["position"])
-				held_object.update_multiplayer_pos.rpc(held_object.global_position)
+				#held_object.update_multiplayer_pos.rpc(held_object.global_position)
 			if held_object is Dice:
 				held_object.on_held(raycast["position"])
 			else:
-				stop_click()
+				#stop_click()
+				pass
 
 
 func _process(delta: float) -> void:

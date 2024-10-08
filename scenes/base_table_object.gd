@@ -16,8 +16,6 @@ var grid_position : Vector2i
 var selected : bool = false
 var held : bool = false
 
-var authority_player : String = ""
-
 func init_done():
 	pass
 
@@ -54,7 +52,6 @@ func return_collisions():
 func start_held(id):
 	held = true
 	hide_collisions()
-	authority_player = str(id)
 
 
 func clicked():
@@ -73,7 +70,6 @@ func update_multiplayer_pos(pos):
 
 func _on_stop_held():
 	held = false
-	authority_player = ""
 
 
 @rpc("call_local","any_peer","reliable")

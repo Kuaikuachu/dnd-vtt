@@ -46,7 +46,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		authority_timeout.start()
 	
-	if held:
+	if held and !sleeping:
 		var vel = correction_modifier * global_position.direction_to(desired_position) * global_position.distance_to(desired_position)
 		var to_desired = global_position.distance_to(desired_position)
 		linear_velocity = vel

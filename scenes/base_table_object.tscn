@@ -1,9 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://bawy7o7ixrdfp"]
+[gd_scene load_steps=3 format=3 uid="uid://bawy7o7ixrdfp"]
 
 [ext_resource type="Script" path="res://scenes/base_table_object.gd" id="1_mvr3w"]
+[ext_resource type="Script" path="res://scenes/parent_var_to_text.gd" id="2_jmr2x"]
 
 [node name="BaseTableObject" type="Node3D"]
 script = ExtResource("1_mvr3w")
 real_name = "BaseTableObject"
 
 [node name="Model" type="Node3D" parent="."]
+
+[node name="ParentVarToText" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.38932, 0)
+script = ExtResource("2_jmr2x")
+var_to_show = "held"

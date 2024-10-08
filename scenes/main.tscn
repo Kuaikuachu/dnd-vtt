@@ -81,7 +81,6 @@ shape = SubResource("BoxShape3D_mbo6n")
 
 [node name="CellVisual" parent="Level" instance=ExtResource("8_2n2qo")]
 unique_name_in_owner = true
-visible = false
 
 [node name="Players" type="Node3D" parent="."]
 
