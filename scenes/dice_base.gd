@@ -1,13 +1,10 @@
-extends RigidBody3D
+extends TableObject
 class_name Dice
-
-@export var real_name : String = ""
 
 @export var correction_modifier : float = 15
 
-@export var speed_limit : float = 10
-
-@onready var model: Node3D = $Model
+@export var lin_speed_limit : float = 10
+@export var ang_speed_limit : float = 30
 
 @onready var sides: Node3D = $Sides
 
@@ -15,19 +12,11 @@ class_name Dice
 
 var up_for_calc : bool = false
 
-var selected : bool = false
-var held : bool = false
-
-var desired_position : Vector3 = Vector3.ZERO
-
-var bodies_interacted : Array
-
 func _init():
 	real_name = name
 
 
 func _ready():
-	rpc_multiplayer_authority.rpc(1)
 	
 	var rand_x = randi_range(-180, 180)
 	var rand_y = randi_range(-180, 180)
@@ -37,8 +26,10 @@ func _ready():
 
 
 func _physics_process(delta: float) -> void:
-	if not is_multiplayer_authority():
-		freeze = true
+	if not is_multiplayer_authority() and not Globals.player.name == "PlayerCamera" and not Globals.player.name == "1":
+		self.freeze = true
+		if self.sleeping:
+			set_physics_process(false)
 		return
 	
 	if self.angular_velocity.length() + self.linear_velocity.length() < 0.3 and not held:
@@ -46,29 +37,15 @@ func _physics_process(delta: float) -> void:
 	else:
 		authority_timeout.start()
 	
-	if held and !sleeping:
+	if held and !self.sleeping:
+		#print("supposed to be moving to desired")
 		var vel = correction_modifier * global_position.direction_to(desired_position) * global_position.distance_to(desired_position)
 		var to_desired = global_position.distance_to(desired_position)
-		linear_velocity = vel
+		self.linear_velocity = vel
 		if to_desired > 0.5:
-			angular_velocity = 2 * vel.rotated(Vector3(0,1,0), 90)
+			self.angular_velocity = 2 * vel.rotated(Vector3(0,1,0), 90)
 		else:
-			angular_velocity = angular_velocity * 0.95
-		#if global_position.distance_to(desired_position) > 0.5:
-			#linear_velocity = global_position.direction_to(desired_position) * global_position.distance_to(desired_position)
-		#else:
-			#linear_velocity = linear_velocity * 0.5
-	
-	
-	## IF SELF IS AUTHORITY
-	#if authority_player == Globals.player.name:
-		#print("authority is ", authority_player)
-		#update_multiplayer_pos.rpc(get_global_transform())
-	## SYNC FOR HOST IF NO ONE IS AUTHORITY
-	#elif authority_player == "" and Globals.player.name == "1":
-		#update_multiplayer_pos.rpc(get_global_transform())
-		#freeze_unfreeze(false)
-	## IF NOT SELF IS AUTHORITY
+			self.angular_velocity = self.angular_velocity * 0.95
 
 
 func calc_up_side():
@@ -84,79 +61,36 @@ func calc_up_side():
 func start_held(id):
 	print(id)
 	rpc_multiplayer_authority.rpc(int(str(id)))
-	freeze = false
-	up_for_calc = true
-	hide_collisions()
+	
 	held = true
-
-
-func clicked():
-	selected = !selected
-
-
-func on_held(pos):
-	var y_offset = 1.5
-	if held:
-		desired_position = Vector3(pos.x, pos.y + y_offset, pos.z)
-
-
-@rpc("call_local","any_peer", "reliable")
-func move_cell(pos):
-	global_position = pos
-
-
-@rpc("call_local","any_peer","reliable")
-func rpc_multiplayer_authority(id):
-	set_multiplayer_authority(id)
-
-
-func hide_collisions():
-	self.set_collision_layer_value(3, false)
-	for i in get_children():
-		if i is StaticBody3D:
-			i.set_collision_layer_value(1, false)
-
-
-func return_collisions():
-	self.set_collision_layer_value(3, true)
-	for i in get_children():
-		if i is StaticBody3D:
-			i.set_collision_layer_value(1, true)
-
-
-@rpc("any_peer", "call_remote", "reliable")
-func update_multiplayer_pos(transf : Transform3D):
-	self.global_transform = transf
-
+	hide_collisions()
+	
+	set_physics_process(true)
+	
+	self.freeze = false
+	self.sleeping = false
+	
+	up_for_calc = true
 
 func _on_stop_held():
-	return_collisions()
 	held = false
+	return_collisions()
 	#print("before", linear_velocity)
-	if linear_velocity.length() > speed_limit:
-		linear_velocity = linear_velocity.normalized() * speed_limit
-	if angular_velocity.length() > speed_limit:
-		angular_velocity = angular_velocity.normalized() * speed_limit
-	#linear_velocity = linear_velocity.clamp(Vector3(-speed_limit,-speed_limit,-speed_limit), Vector3(speed_limit,speed_limit,speed_limit))
-	#angular_velocity = angular_velocity.clamp(Vector3(-speed_limit,-speed_limit,-speed_limit) * 2, Vector3(speed_limit,speed_limit,speed_limit) * 2)
-	#print("after ", linear_velocity)
+	if self.linear_velocity.length() > lin_speed_limit:
+		self.linear_velocity = self.linear_velocity.normalized() * lin_speed_limit
+	if self.angular_velocity.length() > ang_speed_limit:
+		self.angular_velocity = self.angular_velocity.normalized() * ang_speed_limit
+	rpc_multiplayer_authority.rpc(1)
 
 func _on_sleeping_state_changed() -> void:
 	if !up_for_calc:
 		return
-	if angular_velocity.length() < 0.1 and linear_velocity.length() < 0.1 and not held:
-		sleeping = true
+	if self.angular_velocity.length() < 0.1 and self.linear_velocity.length() < 0.1 and not held:
+		self.sleeping = true
 		print("rolled ", calc_up_side())
-		print(Globals.player.name, " ", global_position)
-		freeze = false
+		self.freeze = false
 		
 		up_for_calc = false
-
-
-@rpc("call_local","any_peer","reliable")
-func self_destruct():
-	Globals.gridman.grid_dict.erase(self)
-	queue_free()
 
 
 func _on_authority_timeout_timeout() -> void:

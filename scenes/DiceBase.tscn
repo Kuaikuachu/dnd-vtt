@@ -4,7 +4,7 @@
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2qhgf"]
 friction = 0.9
-bounce = 0.3
+bounce = 0.4
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_o8gx7"]
 properties/0/path = NodePath(".:position")
@@ -29,6 +29,7 @@ physics_material_override = SubResource("PhysicsMaterial_2qhgf")
 gravity_scale = 8.0
 freeze_mode = 1
 script = ExtResource("1_qyvvb")
+y_offset = 1.5
 
 [node name="Model" type="Node3D" parent="."]
 

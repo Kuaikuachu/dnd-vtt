@@ -1,2 +1,2 @@
-extends TableObject
+extends TerrainObject
 class_name FigureObject

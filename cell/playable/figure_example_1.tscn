@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://b66gfwg27cfec"]
+[gd_scene load_steps=7 format=3 uid="uid://b66gfwg27cfec"]
 
 [ext_resource type="PackedScene" uid="uid://cfy0aky13mbkp" path="res://cell/base_figure.tscn" id="1_w1fye"]
 [ext_resource type="Texture2D" uid="uid://bnc285awpimnc" path="res://textures/kenney_dev/green/texture_01.png" id="2_kyp7l"]
@@ -16,6 +16,14 @@ height = 1.9
 radius = 0.4
 height = 1.9
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7rm4j"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+
 [node name="FigureExample1" instance=ExtResource("1_w1fye")]
 real_name = "FigureExample1"
 
@@ -30,3 +38,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.953241, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MouseInput" index="0"]
 shape = SubResource("CapsuleShape3D_33u0e")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." index="3"]
+replication_config = SubResource("SceneReplicationConfig_7rm4j")

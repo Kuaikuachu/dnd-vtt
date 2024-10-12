@@ -61,6 +61,7 @@ func _input(event: InputEvent) -> void:
 		$"../../../../../VBoxContainer/Button".grab_focus()
 		build_mode = true
 		Globals.cell_debug.build_mode_check.button_pressed = build_mode
+		release_held_object()
 	if event.is_action_released("build_mode"):
 		build_mode = false
 		Globals.cell_debug.build_mode_check.button_pressed = build_mode
@@ -96,8 +97,8 @@ func hold():
 	current_collision_mask = drag_plane_collision_mask
 	held_object = selected_object
 	
-	if held_object is TableObject or held_object is Dice:
-		held_object.start_held(Globals.player.name)
+	if held_object is TableObject:
+		held_object.call_deferred("start_held", Globals.player.name)
 	else:
 		held_object = null
 		current_collision_mask = normal_collision_mask
@@ -121,7 +122,7 @@ func stop_click():
 			return
 		
 		var pos = raycast["position"]
-		if held_object is TableObject:
+		if held_object is TableObject and not held_object is Dice:
 			held_object.move_cell.rpc(pos)
 		
 		selected_object = null
@@ -190,13 +191,8 @@ func _physics_process(delta: float) -> void:
 		var raycast = shoot_ray()
 		if !raycast.is_empty():
 			if held_object is TableObject:
-				print("is table object")
+				#print("is table object")
 				held_object.on_held(raycast["position"])
-				#held_object.update_multiplayer_pos.rpc(held_object.global_position)
-			if held_object is Dice:
-				held_object.on_held(raycast["position"])
-			else:
-				#stop_click()
 				pass
 
 

@@ -76,6 +76,7 @@ func create_object(object_id, pos):
 	write_to_dict(new_obj, pos)
 	grid.add_child(new_obj)
 	new_obj.move_cell(pos)
+	print(pos)
 	if new_obj is TableObject:
 		new_obj.init_done()
 
