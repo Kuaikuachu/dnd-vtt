@@ -4,12 +4,14 @@ class_name TableObject
 @onready var gridman = Globals.main.table.gridman
 
 @onready var model: Node3D = $Model
+@onready var menu_options: Node = %MenuOptions
 
 @export var real_name : String
 
 @export var y_offset : float = 0.0
 
 @export var by_grid : bool = false
+
 
 var desired_position : Vector3 = Vector3.ZERO
 
@@ -26,18 +28,18 @@ func _ready():
 
 func hide_collisions():
 	if self is Dice:
-		self.call_deferred("set_collision_layer_value", 3, false)
+		call("set_collision_layer_value", 3, false)
 	for i in get_children():
 		if i is StaticBody3D:
-			i.set_collision_layer_value(1, false)
+			i.call("set_collision_layer_value", 1, false)
 
 
 func return_collisions():
 	if self is Dice:
-		self.call_deferred("set_collision_layer_value", 3, true)
+		call("set_collision_layer_value", 3, true)
 	for i in get_children():
 		if i is StaticBody3D:
-			i.set_collision_layer_value(1, true)
+			i.call("set_collision_layer_value", 1, true)
 
 
 func start_held(id):
@@ -64,10 +66,11 @@ func on_held(pos):
 
 func _on_stop_held():
 	held = false
+	rpc_multiplayer_authority.rpc(1)
 	return_collisions()
 	
 	if by_grid:
-		pass
+		move_cell(global_position)
 
 
 @rpc("call_local","any_peer","reliable")

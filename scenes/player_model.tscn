@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://cqhu8m4xqwfar"]
+
+[ext_resource type="Script" path="res://scenes/player_model.gd" id="1_pqqgh"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_wvc7u"]
+height = 1.4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ujq4b"]
+albedo_color = Color(1, 0.521569, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_jv0pr"]
+material = SubResource("StandardMaterial3D_ujq4b")
+
+[node name="PlayerModel" type="Node3D"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1.79147e-08, -1.93328, 1.59957)
+script = ExtResource("1_pqqgh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_wvc7u")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(0.335, 0, -2.13163e-14, 0, 0.335, 0, 2.13163e-14, 0, 0.335, -0.26, 0.418704, 0.34)
+mesh = SubResource("SphereMesh_jv0pr")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(0.335, 0, -2.13163e-14, 0, 0.335, 0, 2.13163e-14, 0, 0.335, 0.26, 0.418704, 0.34)
+mesh = SubResource("SphereMesh_jv0pr")

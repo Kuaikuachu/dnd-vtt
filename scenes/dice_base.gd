@@ -26,7 +26,7 @@ func _ready():
 
 
 func _physics_process(delta: float) -> void:
-	if not is_multiplayer_authority() and not Globals.player.name == "PlayerCamera" and not Globals.player.name == "1":
+	if not is_multiplayer_authority() and not Globals.player.name == "Player" and not Globals.player.name == "1":
 		self.freeze = true
 		if self.sleeping:
 			set_physics_process(false)
@@ -46,6 +46,27 @@ func _physics_process(delta: float) -> void:
 			self.angular_velocity = 2 * vel.rotated(Vector3(0,1,0), 90)
 		else:
 			self.angular_velocity = self.angular_velocity * 0.95
+
+
+@rpc("call_local","any_peer","reliable")
+func roll():
+	print("roll()")
+	if not is_multiplayer_authority() and not Globals.player.name == "Player":
+		return
+	
+	var lin_r : int = 900
+	var random_linear = randi_range(lin_r, lin_r*1.3)
+	
+	var an_r : int = 150
+	var random_angular = Vector3(randi_range(-an_r, an_r),randi_range(-an_r, an_r),randi_range(-an_r, an_r))
+	
+	var misc_r : int = 100
+	var random_misc_1 = randi_range(-misc_r, misc_r)
+	var random_misc_2 = randi_range(-misc_r, misc_r)
+	
+	
+	self.call("apply_central_force", Vector3(random_misc_1,random_linear,random_misc_2))
+	self.call("apply_torque", random_angular)
 
 
 func calc_up_side():
@@ -80,8 +101,8 @@ func _on_stop_held():
 		self.linear_velocity = self.linear_velocity.normalized() * lin_speed_limit
 	if self.angular_velocity.length() > ang_speed_limit:
 		self.angular_velocity = self.angular_velocity.normalized() * ang_speed_limit
-	rpc_multiplayer_authority.rpc(1)
-
+	
+	
 func _on_sleeping_state_changed() -> void:
 	if !up_for_calc:
 		return

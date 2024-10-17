@@ -1,8 +1,7 @@
-[gd_scene load_steps=24 format=3 uid="uid://dqffjjipet8pu"]
+[gd_scene load_steps=26 format=3 uid="uid://dqffjjipet8pu"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_8o0da"]
 [ext_resource type="PackedScene" uid="uid://bf8ibjhwgc07v" path="res://scenes/character_body_3d.tscn" id="1_fbubj"]
-[ext_resource type="Script" path="res://scenes/camera.gd" id="2_6jgwc"]
 [ext_resource type="PackedScene" uid="uid://t6w3m5onix1r" path="res://scenes/table.tscn" id="2_6vf1i"]
 [ext_resource type="Script" path="res://scenes/cells_list.gd" id="2_bis5b"]
 [ext_resource type="Script" path="res://scenes/multiplayer.gd" id="3_6botv"]
@@ -19,6 +18,9 @@
 [ext_resource type="PackedScene" uid="uid://wbp7ukv4010f" path="res://dice/d_6.tscn" id="11_riugc"]
 [ext_resource type="PackedScene" uid="uid://bx4hsh7ott313" path="res://dice/d_10.tscn" id="12_q2f08"]
 [ext_resource type="PackedScene" uid="uid://bnyg024vxi7vf" path="res://dice/d_12.tscn" id="13_2aj4w"]
+[ext_resource type="Script" path="res://scenes/player.gd" id="14_cfvej"]
+[ext_resource type="Script" path="res://scenes/obj_select.gd" id="20_boxlu"]
+[ext_resource type="PackedScene" uid="uid://dqw5142qc0yo8" path="res://scenes/option_button.tscn" id="21_wn6bu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_we44t"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -46,20 +48,23 @@ scenes = Array[PackedScene]([ExtResource("3_ji6q1"), ExtResource("4_xrduw"), Ext
 
 [node name="Level" type="Node3D" parent="."]
 
-[node name="MovePointY" type="Node3D" parent="Level"]
+[node name="Player" type="Node3D" parent="Level"]
 transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, 0)
+script = ExtResource("14_cfvej")
 
-[node name="MovePointX" type="Node3D" parent="Level/MovePointY"]
+[node name="MovePointX" type="Node3D" parent="Level/Player"]
 
-[node name="CameraMount" type="Node3D" parent="Level/MovePointY/MovePointX"]
+[node name="CameraMount" type="Node3D" parent="Level/Player/MovePointX"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.52165e-07, 0, 4.98136)
 
-[node name="PlayerCamera" type="Camera3D" parent="Level/MovePointY/MovePointX/CameraMount"]
+[node name="PlayerCamera" type="Camera3D" parent="Level/Player/MovePointX/CameraMount"]
 unique_name_in_owner = true
-script = ExtResource("2_6jgwc")
-camera_speed = 0.05
 
-[node name="Timer" type="Timer" parent="Level/MovePointY/MovePointX/CameraMount/PlayerCamera"]
+[node name="LeftClickTimer" type="Timer" parent="Level/Player"]
+wait_time = 0.12
+one_shot = true
+
+[node name="RightClickTimer" type="Timer" parent="Level/Player"]
 wait_time = 0.12
 one_shot = true
 
@@ -81,22 +86,16 @@ shape = SubResource("BoxShape3D_mbo6n")
 
 [node name="CellVisual" parent="Level" instance=ExtResource("8_2n2qo")]
 unique_name_in_owner = true
+visible = false
 
 [node name="Players" type="Node3D" parent="."]
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-custom_minimum_size = Vector2(200, 600)
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 40.0
-grow_horizontal = 0
-size_flags_horizontal = 8
-size_flags_vertical = 0
-
-[node name="Button" type="Button" parent="VBoxContainer"]
-layout_mode = 2
+[node name="FocusGrabber" type="Button" parent="."]
+unique_name_in_owner = true
+visible = false
+offset_left = 20000.0
+offset_right = 20008.0
+offset_bottom = 8.0
 
 [node name="Interface" type="Node2D" parent="."]
 
@@ -159,6 +158,8 @@ script = ExtResource("6_p562j")
 [node name="VBoxContainer" type="VBoxContainer" parent="Interface/cell_debug"]
 offset_right = 40.0
 offset_bottom = 40.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
 
 [node name="ItemList" type="ItemList" parent="Interface/cell_debug/VBoxContainer"]
 custom_minimum_size = Vector2(0, 350)
@@ -201,11 +202,41 @@ layout_mode = 2
 button_mask = 0
 text = "BUILD MODE"
 
-[connection signal="ready" from="." to="Level/MovePointY/MovePointX/CameraMount/PlayerCamera" method="_on_main_ready"]
+[node name="obj_select" type="Node2D" parent="Interface"]
+position = Vector2(724, 307)
+script = ExtResource("20_boxlu")
+menu_button = ExtResource("21_wn6bu")
+
+[node name="PanelContainer" type="PanelContainer" parent="Interface/obj_select"]
+offset_right = 270.0
+offset_bottom = 72.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/obj_select/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/obj_select/PanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+
+[node name="obj_name" type="Label" parent="Interface/obj_select/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "SELECTED OBJECT"
+horizontal_alignment = 1
+
+[node name="Control" parent="Interface/obj_select/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("21_wn6bu")]
+layout_mode = 2
+
+[connection signal="ready" from="." to="Level/Player" method="_on_main_ready"]
 [connection signal="ready" from="." to="Level/CellVisual" method="_on_main_ready"]
 [connection signal="ready" from="." to="Interface/multiplayer" method="_on_main_ready"]
 [connection signal="ready" from="." to="Interface/cell_debug" method="_on_main_ready"]
-[connection signal="timeout" from="Level/MovePointY/MovePointX/CameraMount/PlayerCamera/Timer" to="Level/MovePointY/MovePointX/CameraMount/PlayerCamera" method="_on_timer_timeout"]
+[connection signal="timeout" from="Level/Player/LeftClickTimer" to="Level/Player" method="_on_left_click_timer_timeout"]
+[connection signal="timeout" from="Level/Player/RightClickTimer" to="Level/Player" method="_on_right_click_timer_timeout"]
 [connection signal="pressed" from="Interface/multiplayer/VBoxContainer/HBoxContainer/host" to="Interface/multiplayer" method="_on_host_pressed"]
 [connection signal="pressed" from="Interface/multiplayer/VBoxContainer/HBoxContainer2/join" to="Interface/multiplayer" method="_on_join_pressed"]
 [connection signal="ready" from="Interface/cell_debug" to="CellsList" method="_on_cell_debug_ready"]

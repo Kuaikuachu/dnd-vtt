@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bawy7o7ixrdfp"]
+[gd_scene load_steps=4 format=3 uid="uid://bawy7o7ixrdfp"]
 
 [ext_resource type="Script" path="res://scenes/base_table_object.gd" id="1_mvr3w"]
 [ext_resource type="Script" path="res://scenes/parent_var_to_text.gd" id="2_jmr2x"]
+[ext_resource type="Script" path="res://scenes/option.gd" id="3_hr8bs"]
 
 [node name="BaseTableObject" type="Node3D"]
 script = ExtResource("1_mvr3w")
@@ -13,3 +14,9 @@ real_name = "BaseTableObject"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.38932, 0)
 script = ExtResource("2_jmr2x")
 var_to_show = "held"
+
+[node name="MenuOptions" type="Node" parent="."]
+unique_name_in_owner = true
+
+[node name="Delete" type="Node" parent="MenuOptions"]
+script = ExtResource("3_hr8bs")

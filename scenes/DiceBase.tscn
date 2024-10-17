@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dqm54lhtu703m"]
+[gd_scene load_steps=6 format=3 uid="uid://dqm54lhtu703m"]
 
 [ext_resource type="Script" path="res://scenes/dice_base.gd" id="1_qyvvb"]
+[ext_resource type="Script" path="res://scenes/delete.gd" id="2_q6wux"]
+[ext_resource type="Script" path="res://scenes/roll.gd" id="3_isx4k"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2qhgf"]
 friction = 0.9
@@ -42,6 +44,15 @@ one_shot = true
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_o8gx7")
+
+[node name="MenuOptions" type="Node" parent="."]
+unique_name_in_owner = true
+
+[node name="Roll" type="Node" parent="MenuOptions"]
+script = ExtResource("3_isx4k")
+
+[node name="Delete" type="Node" parent="MenuOptions"]
+script = ExtResource("2_q6wux")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="AuthorityTimeout" to="." method="_on_authority_timeout_timeout"]

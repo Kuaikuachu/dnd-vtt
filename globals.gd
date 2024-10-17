@@ -10,5 +10,7 @@ var player
 
 var gridman : Node
 
+var multiplayer_man : Node2D
+
 var celist : Dictionary
 var celist_node : Node
