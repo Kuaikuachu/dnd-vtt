@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cqhu8m4xqwfar"]
+[gd_scene load_steps=9 format=3 uid="uid://cqhu8m4xqwfar"]
 
 [ext_resource type="Script" path="res://scenes/player_model.gd" id="1_pqqgh"]
+[ext_resource type="Script" path="res://scenes/Draw3D.gd" id="2_e3076"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_wvc7u"]
-height = 1.4
+height = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ujq4b"]
 albedo_color = Color(1, 0.521569, 1, 1)
@@ -11,8 +12,22 @@ albedo_color = Color(1, 0.521569, 1, 1)
 [sub_resource type="SphereMesh" id="SphereMesh_jv0pr"]
 material = SubResource("StandardMaterial3D_ujq4b")
 
+[sub_resource type="BoxMesh" id="BoxMesh_y64vy"]
+size = Vector3(1, 0.4, 0.69)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hbq4l"]
+size = Vector3(0.2, 0.265, 0.59)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_x52pe"]
+properties/0/path = NodePath(".:global_transform")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath("Hand:global_transform")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+
 [node name="PlayerModel" type="Node3D"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1.79147e-08, -1.93328, 1.59957)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1.79147e-08, -0.568435, 1.59957)
 script = ExtResource("1_pqqgh")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -20,9 +35,47 @@ transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_wvc7u")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
-transform = Transform3D(0.335, 0, -2.13163e-14, 0, 0.335, 0, 2.13163e-14, 0, 0.335, -0.26, 0.418704, 0.34)
+transform = Transform3D(0.335, 0, -2.30926e-14, 0, 0.335, 0, 2.30926e-14, 0, 0.335, -0.26, 0.0275584, 0.34)
 mesh = SubResource("SphereMesh_jv0pr")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="MeshInstance3D"]
-transform = Transform3D(0.335, 0, -2.13163e-14, 0, 0.335, 0, 2.13163e-14, 0, 0.335, 0.26, 0.418704, 0.34)
+transform = Transform3D(0.335, 0, -2.30926e-14, 0, 0.335, 0, 2.30926e-14, 0, 0.335, 0.26, 0.0275584, 0.34)
 mesh = SubResource("SphereMesh_jv0pr")
+
+[node name="Hand" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1.79147e-08, -1.93328, 1.59957)
+top_level = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Hand"]
+transform = Transform3D(0.758072, 0.359963, 0.543832, 0.164331, 0.701543, -0.693421, -0.631128, 0.615031, 0.472667, -1.04246, 0.802103, -0.486631)
+mesh = SubResource("BoxMesh_y64vy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Hand/MeshInstance3D"]
+transform = Transform3D(0.995, -1.49012e-08, 3.72529e-09, 1.30385e-08, 1, 1.19209e-07, 1.86265e-09, 0, 1.55, 0.371796, 0.118058, 0.746516)
+mesh = SubResource("BoxMesh_hbq4l")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Hand/MeshInstance3D"]
+transform = Transform3D(0.164703, -0.20859, 0.964035, 0.986343, 0.0348312, -0.160978, 0, 0.977383, 0.211478, 0.740138, 0.0507991, 0.344029)
+mesh = SubResource("BoxMesh_hbq4l")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Hand/MeshInstance3D"]
+transform = Transform3D(1, 1.39698e-07, -1.15484e-07, -9.31323e-08, -0.00535807, -0.999985, -8.3819e-08, 0.999985, -0.00535816, 0.185566, -0.0375845, 0.470725)
+mesh = SubResource("BoxMesh_hbq4l")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Hand/MeshInstance3D"]
+transform = Transform3D(0.999204, 0.000213861, 0.0398869, 0.0398875, -0.00535369, -0.999189, -7.21775e-08, 0.999986, -0.0053581, -0.00674534, -0.0449057, 0.470725)
+mesh = SubResource("BoxMesh_hbq4l")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Hand/MeshInstance3D"]
+transform = Transform3D(0.997147, 0.000404565, 0.0754823, 0.0754833, -0.00534278, -0.997133, -7.82311e-08, 0.999986, -0.0053581, -0.197814, -0.0570834, 0.475048)
+mesh = SubResource("BoxMesh_hbq4l")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Hand/MeshInstance3D"]
+transform = Transform3D(0.992315, 0.000663143, 0.123738, 0.12374, -0.00531667, -0.9923, -8.19564e-08, 0.999985, -0.00535813, -0.391324, -0.0825973, 0.477117)
+mesh = SubResource("BoxMesh_hbq4l")
+
+[node name="Line" type="Node" parent="."]
+script = ExtResource("2_e3076")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_x52pe")

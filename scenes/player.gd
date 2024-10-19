@@ -34,6 +34,8 @@ var sensitivity : float = 0.01
 
 var camera_speed_relative : float = camera_speed
 
+var mouse_position
+
 #func _input(event: InputEvent) -> void:
 	#if event.is_action_pressed("click"):
 		#click()
@@ -80,6 +82,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		stop_click()
 	
 	if event.is_action_pressed("right_click"):
+		%FocusGrabber.grab_focus()
 		right_click()
 	
 	if event.is_action_released("right_click"):
@@ -247,11 +250,6 @@ func _physics_process(delta: float) -> void:
 		if direction:
 			camera_speed_relative = camera_speed * camera_mount.position.distance_to(move_point_x.position)
 			move_point_y.position += direction * camera_speed_relative
-
-	## MANIPULATOR FANCY SHADER LOGIC
-	#var raypulator = shoot_ray(drag_plane_collision_mask)
-	#if !raypulator.is_empty():
-		#Globals.main.cell_visual._set_manipulator_pos(raypulator["position"].x, raypulator["position"].z)
 	
 	
 	## ON HOLD STUFF HERE
@@ -267,8 +265,12 @@ func _physics_process(delta: float) -> void:
 func _process(delta: float) -> void:
 	## MANIPULATOR FANCY SHADER LOGIC
 	var raypulator = shoot_ray(drag_plane_collision_mask - normal_collision_mask)
-	if !raypulator.is_empty() and Globals.main.cell_visual:
-		Globals.main.cell_visual._set_manipulator_pos(raypulator["position"].x, raypulator["position"].z)
+	if !raypulator.is_empty():
+		mouse_position = raypulator["position"] 
+		if Globals.main.cell_visual:
+			Globals.main.cell_visual._set_manipulator_pos(raypulator["position"].x, raypulator["position"].z)
+	else:
+		mouse_position = null
 
 
 func shoot_ray(mask = current_collision_mask):

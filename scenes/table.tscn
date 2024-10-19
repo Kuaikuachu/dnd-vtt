@@ -33,6 +33,10 @@ grid = NodePath("../Grid")
 
 [node name="Grid" type="Node3D" parent="."]
 
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="Grid"]
+_spawnable_scenes = PackedStringArray("res://dice/d_20.tscn")
+spawn_path = NodePath("..")
+
 [node name="TableCollision" type="StaticBody3D" parent="."]
 collision_layer = 4
 collision_mask = 4

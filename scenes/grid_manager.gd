@@ -11,6 +11,10 @@ var top_left : Vector2 = Vector2.ZERO
 var grid_dict : Dictionary = {}
 
 
+func _enter_tree() -> void:
+	set_multiplayer_authority(1)
+
+
 func _ready() -> void:
 	Globals.gridman = self
 	
@@ -56,8 +60,11 @@ func coord_to_cell_transition(coord : float, horizontal : bool) -> int:
 		cell_coord = -(cell_coord - grid_vertical / 2)
 	return cell_coord
 
-@rpc("call_local", "any_peer", "reliable")
+@rpc("call_local","any_peer","reliable")
+#@rpc("call_local", "any_peer", "reliable")
 func create_object(object_id, pos):
+	if not multiplayer.is_server():
+		return
 	var object
 	#print("obj_id ",object_id)
 	if object_id is PackedScene:
@@ -72,14 +79,14 @@ func create_object(object_id, pos):
 	#print("name to texture ", Globals.celist_node.name_to_texture)
 	if new_obj is TextureTerrain or new_obj is TextureToken:
 		new_obj.apply_mat(Globals.celist_node.name_to_texture[object_id])
-		
-	write_to_dict(new_obj, pos)
-	grid.add_child(new_obj)
-	new_obj.move_cell(pos)
-	print(pos)
-	if new_obj is TableObject:
-		new_obj.init_done()
-
+	
+	#write_to_dict(new_obj, pos)
+	print("right before adding child ", new_obj.name)
+	grid.add_child(new_obj,true)
+	new_obj.move_cell.rpc(pos)
+	#print(pos)
+	#if new_obj is TableObject:
+		#new_obj.init_done()
 
 
 func write_to_dict(object : Node3D, pos : Vector3):

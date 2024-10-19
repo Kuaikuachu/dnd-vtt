@@ -20,11 +20,22 @@ var grid_position : Vector2i
 var selected : bool = false
 var held : bool = false
 
-func init_done():
-	pass
+
+func _enter_tree() -> void:
+	set_multiplayer_authority(1)
+
+
+#func init_done():
+	#gridman.write_to_dict(self, global_position)
+	#gridman.grid.add_child(self,true)
+	#move_cell(global_position)
 
 func _ready():
-	rpc_multiplayer_authority.rpc(1)
+	gridman.write_to_dict(self, global_position)
+	#gridman.grid.add_child(self,true)
+	move_cell(global_position)
+	start_held(multiplayer.get_unique_id())
+	_on_stop_held()
 
 func hide_collisions():
 	if self is Dice:

@@ -12,11 +12,14 @@ class_name Dice
 
 var up_for_calc : bool = false
 
-func _init():
-	real_name = name
-
+@onready var multiplayer_synchronizer: MultiplayerSynchronizer = $MultiplayerSynchronizer
 
 func _ready():
+	print("created ", name, " on client ", multiplayer.get_unique_id())
+	super()
+	#set_multiplayer_authority(1)
+	#multiplayer_synchronizer.set_multiplayer_authority(1)
+	#rpc_multiplayer_authority.rpc(1)
 	
 	var rand_x = randi_range(-180, 180)
 	var rand_y = randi_range(-180, 180)

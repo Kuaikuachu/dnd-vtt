@@ -227,7 +227,7 @@ func create_object_at_mouse(object_id):
 	var raycast = shoot_ray(drag_plane_collision_mask)
 	if not object_id or raycast.is_empty():
 		return
-	gridman.create_object.rpc(object_id, raycast["position"])
+	gridman.create_object.rpc_id(1, object_id, raycast["position"])
 
 
 func _on_main_ready() -> void:
