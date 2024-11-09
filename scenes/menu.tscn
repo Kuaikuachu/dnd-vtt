@@ -1,0 +1,57 @@
+[gd_scene load_steps=2 format=3 uid="uid://di3o4ohby0k1x"]
+
+[ext_resource type="Script" path="res://scenes/main_menu.gd" id="1_g6506"]
+
+[node name="Menu" type="Node2D"]
+script = ExtResource("1_g6506")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -95.5
+offset_top = -83.0
+offset_right = 95.5
+offset_bottom = 83.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 35
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 35
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Singleplayer" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Singeplayer"
+
+[node name="Create server" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Create server"
+
+[node name="Server list" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Server list"
+
+[node name="Direct connect" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Direct connect"
+
+[node name="WorldNode" type="Node3D" parent="."]
+
+[connection signal="button_up" from="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/Singleplayer" to="." method="_on_singleplayer_button_up"]

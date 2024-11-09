@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="dnd vtt"
-run/main_scene="res://scenes/main.tscn"
+run/main_scene="res://scenes/menu.tscn"
 config/use_custom_user_dir=true
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 [autoload]
 
 Globals="*res://globals.gd"
+
+[display]
+
+window/stretch/aspect="expand"
 
 [importer_defaults]
 
